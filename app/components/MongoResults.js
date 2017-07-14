@@ -1,6 +1,20 @@
 import React from "react";
 import axios from "axios";
 
+const ProductRow = (props) => (
+
+      <div>
+      {props.rows.map(el=>
+          <tr>
+            <td>{el.name}</td>
+            <td>40</td>
+          </tr>
+        )}
+      </div>
+    );
+
+
+
 class MongoResults extends React.Component {
   constructor(props) {
     super(props);
@@ -19,13 +33,24 @@ class MongoResults extends React.Component {
 
     return (
       <div>
-      <ul>
-      {data && data.map(el=>
-        <li key ={el.name}> {el.name}</li>)}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody><ProductRow rows={data}/></tbody>
+      </table>
+
       </div>
     );
   }
 }
 
 module.exports=  MongoResults;
+
+
+
+
+

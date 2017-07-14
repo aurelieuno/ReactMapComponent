@@ -1,42 +1,24 @@
 var express =  require("express");
+var app = express();
 var router = express.Router();
 var bodyParser = require("body-parser");
 var path = require("path");
 
 var User = require('../models/User');
+
+//===================================================
+var DIST_DIR = path.join(__dirname+'/../dist');
+//C:\Users\u00136\myprojects\React\reactGitBattle2\dist
+
+//Serving the files on the dist folder
+app.use(express.static(DIST_DIR));
+
 //==================== GET ============================
-router.get('/',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-
 router.get('/index_bundle.js',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index_bundle.js'));
+    res.sendFile((path.join(DIST_DIR, "index_bundle.js")))
 });
 
-router.get('/battle',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-
-router.get('/popular',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-
-router.get('/topics',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-
-router.get('/form',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-
-router.get('/form2',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-
-router.get('/mongoresults',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-});
-//================== AJAX ==============================
+//================== AJAX GET==============================
 router.get('/data',function(req,res){
 
     User.find({},function(err, docs) {
@@ -45,6 +27,11 @@ router.get('/data',function(req,res){
       res.send(docs);
 })
   });
+
+//===============GET EVERYTHING ELSE============================
+router.get("*", function (req, res) {
+  res.sendFile((path.join(DIST_DIR, "index.html")))
+});
 
 //================== POST ==============================
 
