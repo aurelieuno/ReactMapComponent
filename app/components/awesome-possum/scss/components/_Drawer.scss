@@ -2,13 +2,10 @@
 $drawer-width: 300px !default;
 $drawer-bkgd: $lightest-gray !default;
 $mobile-nav-bkgd: $black !default;
-
 $drawer-height: 100% !default;
 $drawer-height-contained: 800px !default;
 $drawer-height-fixed: 100vh !default;
 $drawer-overlay-top-value: 0 !default;
-
-
 /* TODO: add option for collapsible sidebar
 add overlay collapsible for all sidebars at specified breakpoint */
 
@@ -25,6 +22,7 @@ add overlay collapsible for all sidebars at specified breakpoint */
   width: $size-large;
   z-index: $below-everything;
 }
+
 // ADD DRAWER CONTROLS MIXIN WHERE NEEDED
 @mixin drawer-controls {
   .rev-Drawer-expander,
@@ -76,6 +74,7 @@ add overlay collapsible for all sidebars at specified breakpoint */
     }
   }
 }
+
 // ZERO OUT DRAWER STYLES (ex: TOPBAR ABOVE MOBILE BREAKPOINT)
 @mixin drawer-nostyle {
   @include flex(center, row, space-between, nowrap);
@@ -97,6 +96,7 @@ add overlay collapsible for all sidebars at specified breakpoint */
     @include flex(center, row, flex-end, nowrap);
   }
 }
+
 // DEFAULT DRAWER
 @mixin drawer {
   margin: 0;
@@ -120,10 +120,12 @@ add overlay collapsible for all sidebars at specified breakpoint */
     }
   }
 }
+
 // SCROLLING DRAWER
 @mixin drawer-scroll($height: $drawer-height-contained) {
   @include vertical-scroll-container($height);
 }
+
 // FIXED POSITION DRAWER
 @mixin drawer-fixed {
   height: $drawer-height-fixed;
@@ -132,6 +134,7 @@ add overlay collapsible for all sidebars at specified breakpoint */
     position: fixed;
   }
 }
+
 // OVERLAY DRAWER
 @mixin drawer-overlay($top: $drawer-overlay-top-value) {
   @include drawer-fixed;
@@ -142,11 +145,12 @@ add overlay collapsible for all sidebars at specified breakpoint */
   width: 0px;
   z-index: $above-most;
   &.rev-Drawer--open {
-    left:0;
+    left: 0;
     min-width: $drawer-width;
     width: $drawer-width;
   }
 }
+
 // COLLAPSIBLE DRAWER
 @mixin drawer-collapsible {
   @include drawer-controls;
@@ -155,18 +159,15 @@ add overlay collapsible for all sidebars at specified breakpoint */
   min-width: 0px;
   width: 0px;
   &.rev-Drawer--open {
-    left:0;
+    left: 0;
     min-width: $drawer-width;
     width: $drawer-width;
   }
 }
 
-
-
 .rev-Drawer {
   @include global-transition;
-  @include drawer;
-  // MOBILE DRAWER STYLES
+  @include drawer; // MOBILE DRAWER STYLES
   @include breakpoint(small-only) {
     @include drawer-collapsible;
     @include drawer-overlay;
@@ -226,8 +227,7 @@ add overlay collapsible for all sidebars at specified breakpoint */
         }
       }
     }
-  }
-  //TODO: mobile Nav styles + toggle
+  } //TODO: mobile Nav styles + toggle
   &.rev-Drawer--mobileNav {
     @include breakpoint(medium) {
       @include drawer-nostyle;

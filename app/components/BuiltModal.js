@@ -1,6 +1,6 @@
 import React from "react";
 
-class Form3 extends React.Component {
+class BuiltModal extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -96,4 +96,4 @@ class Modal extends React.Component {
   }
 }
 
-module.exports = Form3;
+module.exports = BuiltModal;

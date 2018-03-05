@@ -94,7 +94,12 @@ var Drawer = function (_React$Component) {
         acc[value] = _this2.props[key];
         return acc;
       }, {});
+      console.log(propClassNames)
       var newClassName = (0, _classnames2.default)(this.props.className, propClassNames);
+      console.log(newClassName)
+      console.log(this.props)
+      console.log(this.props.className)
+      console.log(propClassNames)
 
       return _react2.default.createElement(
         Expander,

@@ -4,7 +4,7 @@ import Modal from './awesome-possum/lib/Modal'
 import Button from './awesome-possum/lib/Button'
 import CloseButton from './awesome-possum/lib/CloseButton'
 
-class Form5 extends React.Component {
+class StateModal extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -40,4 +40,4 @@ class Form5 extends React.Component {
 
 
 
-module.exports = Form5;
+module.exports = StateModal;
