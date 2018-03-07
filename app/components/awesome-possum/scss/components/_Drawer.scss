@@ -101,7 +101,7 @@ add overlay collapsible for all sidebars at specified breakpoint */
 @mixin drawer {
   margin: 0;
   min-width: $drawer-width;
-  position: relative;
+  position: fixed;
   top: 0;
   width: $drawer-width;
   .rev-Drawer-contents {

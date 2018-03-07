@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Expander = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11,13 +10,17 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _propTypes = require('prop-types');
+var _StatelessDrawer = require('./StatelessDrawer');
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _StatelessDrawer2 = _interopRequireDefault(_StatelessDrawer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,35 +42,34 @@ var BOOL_PROPS_TO_CLASS_NAMES = {
 
 var BOOL_PROPS = Object.keys(BOOL_PROPS_TO_CLASS_NAMES);
 
-var StatelessDrawer = function (_React$Component) {
-  _inherits(StatelessDrawer, _React$Component);
+var NewDrawer = function (_Component) {
+  _inherits(NewDrawer, _Component);
 
-  function StatelessDrawer() {
-    var _ref;
+  function NewDrawer(props) {
+    _classCallCheck(this, NewDrawer);
 
-    var _temp, _this, _ret;
+    var _this = _possibleConstructorReturn(this, (NewDrawer.__proto__ || Object.getPrototypeOf(NewDrawer)).call(this, props));
 
-    _classCallCheck(this, StatelessDrawer);
+    _this.expandDrawer = function () {
+      _this.setState({ open: true });
+    };
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this.closeDrawer = function () {
+      _this.setState({ open: false });
+    };
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = StatelessDrawer.__proto__ || Object.getPrototypeOf(StatelessDrawer)).call.apply(_ref, [this].concat(args))), _this), _this.expand = function () {
-      if (_this.props.expand) {
-        _this.props.expand();
-      }
-    }, _this.close = function () {
-      if (_this.props.close) {
-        _this.props.close();
-      }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    _this.state = {
+      open: props.open
+    };
+    return _this;
   }
 
-  _createClass(StatelessDrawer, [{
+  _createClass(NewDrawer, [{
     key: 'render',
     value: function render() {
       var _this2 = this;
+
+      var open = this.state.open;
 
       var propClassNames = BOOL_PROPS.reduce(function (acc, key) {
         var value = BOOL_PROPS_TO_CLASS_NAMES[key];
@@ -75,34 +77,28 @@ var StatelessDrawer = function (_React$Component) {
         return acc;
       }, {});
       var newClassName = (0, _classnames2.default)(this.props.className, propClassNames);
-      console.log('newClassName', newClassName);
-      console.log('propClassNames', propClassNames);
-      console.log('this.props', this.props);
 
       return _react2.default.createElement(
-        Expander,
+        _StatelessDrawer2.default,
         {
-          open: this.props.open,
+          open: open,
           className: newClassName,
-          closer: _react2.default.createElement(
-            'a',
-            { className: 'rev-Drawer-closer', onClick: this.close },
-            this.props.closerChildren
-          )
+          close: this.closeDrawer,
+          expand: this.expandDrawer,
+          expanderComponentClass: this.props.expanderComponentClass,
+          expanderClassName: this.props.expanderClassName,
+          expanderChildren: this.props.expanderChildren,
+          closerChildren: this.props.closerChildren
         },
-        _react2.default.createElement(this.props.expanderComponentClass, {
-          className: 'rev-Drawer-expander',
-          onClick: this.expand
-        }, this.props.expanderChildren),
         this.props.children
       );
     }
   }]);
 
-  return StatelessDrawer;
-}(_react2.default.Component);
+  return NewDrawer;
+}(_react.Component);
 
-StatelessDrawer.propTypes = {
+NewDrawer.propTypes = {
   open: _propTypes2.default.bool,
   close: _propTypes2.default.func,
   expand: _propTypes2.default.func,
@@ -112,35 +108,12 @@ StatelessDrawer.propTypes = {
   expanderChildren: _propTypes2.default.node,
   expanderComponentClass: _propTypes2.default.string
 };
-StatelessDrawer.defaultProps = {
+NewDrawer.defaultProps = {
   expanderComponentClass: 'a',
   expanderClassName: '',
   expanderChildren: 'Expand this',
   closerChildren: 'Close This',
   open: 'false'
 };
-exports.default = StatelessDrawer;
-var Expander = exports.Expander = function Expander(props) {
-  return _react2.default.createElement(
-    'div',
-    { className: 'rev-Drawer ' + (props.open ? 'rev-Drawer--open' : '') + ' ' + props.className },
-    props.closer,
-    _react2.default.createElement(
-      'div',
-      { className: 'rev-Drawer-contents' },
-      props.children
-    )
-  );
-};
-
-Expander.defaultProps = {
-  className: ''
-};
-
-Expander.propTypes = {
-  children: _propTypes2.default.node,
-  className: _propTypes2.default.string,
-  closer: _propTypes2.default.node,
-  open: _propTypes2.default.bool
-};
-//# sourceMappingURL=StatelessDrawer.js.map
+exports.default = NewDrawer;
+//# sourceMappingURL=NewDrawer.js.map

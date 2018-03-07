@@ -19,6 +19,8 @@ import ModalExample from "./ModalLess";
 import Form2 from "./Form2";
 import BuiltModal from "./BuiltModal";
 import NoStateDrawer from "./NoStateDrawer";
+import DrawerP from "./DrawerP";
+import StateDrawer from "./StateDrawer";
 import StateModal from "./StateModal";
 import Results from "./Results1";
 import MongoResults from "./MongoResults";
@@ -35,7 +37,9 @@ const App = () => (
         <li><NavLink activeClassName='active' to="/form2">Form2</NavLink></li>
         <li><NavLink activeClassName='active' to="/builtmodal">BuiltModal</NavLink></li>
         <li><NavLink activeClassName='active' to="/form4">NoStateDrawer</NavLink></li>
+        <li><NavLink activeClassName='active' to="/statedrawer">StateDrawer</NavLink></li>
         <li><NavLink activeClassName='active' to="/form5">StateModal</NavLink></li>
+        <li><NavLink activeClassName='active' to="/drawerP">DrawerP</NavLink></li>
         <li><NavLink activeClassName='active' to="/mongoresults">MongoResults</NavLink></li>
 
       </ul>
@@ -49,7 +53,9 @@ const App = () => (
       <Route path="/form2" component={Form2}/>
       <Route path="/builtmodal" component={BuiltModal}/>
       <Route path="/form4" component={NoStateDrawer}/>
+      <Route path="/statedrawer" component={StateDrawer}/>
       <Route path="/form5" component={StateModal}/>
+      <Route path="/drawerP" component={DrawerP}/>
       <Route path="/battle/results" component={Results}/>
       <Route path="/mongoresults" component={MongoResults}/>
       <Route render={() => (
