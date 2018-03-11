@@ -22,12 +22,11 @@ class ModalExample extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.openModal()}>Open modal</button>
-
+        <Button small onClick={() => this.openModal()}>Open Modal</Button>
         <StatelessModal isOpen={this.state.isOpen} onBackgroundClick={() => this.closeModal()}>
           <h1>Modal Example</h1>
           <p>Modal Content</p>  
-          <CloseButton aria-label="Close Callout" onClick={() => this.closeModal()}>&times;</CloseButton>
+          <CloseButton aria-label="Close Callout" style={{marginBottom: '15px', marginRight: '15px'}} onClick={() => this.closeModal()}>&times;</CloseButton>
         </StatelessModal>  
       </div>
     )

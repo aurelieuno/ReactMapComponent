@@ -1,4 +1,7 @@
 // Justify Content
+.card-image {
+  min-height: 1px;
+}
 .rev-Row--end {
   @include flexJustifyEnd;
 }

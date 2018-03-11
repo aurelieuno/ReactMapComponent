@@ -49,6 +49,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /** @jsx createElement */
 
+var isFirefox = function isFirefox() {
+  return navigator.userAgent.indexOf('Firefox') > -1;
+};
 /**
  * Return true if date type inputs are well supported on this platform
  * @return {boolean} true is date type inputs are well supported, false otherwise
@@ -56,6 +59,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function goodDateInput() {
   if (typeof window === 'undefined') {
     return true;
+  } else if (isFirefox()) {
+    return false;
   } else {
     var el = document.createElement('input');
     el.type = 'date';
@@ -107,11 +112,11 @@ var UncontrolledDatePicker = function (_React$Component) {
       isOpen: _this.props.isOpen || false,
       focused: false
     }, _this.valuesFromProps(props), {
-      // Generation exists to force the inputs in the component to accept the
-      // new value when we click the calendar
-      generation: 0,
-      mousedIn: false
-    });
+        // Generation exists to force the inputs in the component to accept the
+        // new value when we click the calendar
+        generation: 0,
+        mousedIn: false
+      });
     return _this;
   }
 
@@ -344,19 +349,19 @@ var UncontrolledDatePicker = function (_React$Component) {
       var _this2 = this;
 
       var _props = this.props,
-          error = _props.error,
-          help = _props.help,
-          label = _props.label,
-          highlights = _props.highlights,
-          isOpen = _props.isOpen,
-          overrides = _props.overrides,
-          isSelectable = _props.isSelectable,
-          calendar = _props.calendar,
-          week = _props.week,
-          day = _props.day,
-          headerDay = _props.headerDay,
-          overlay = _props.overlay,
-          props = _objectWithoutProperties(_props, ['error', 'help', 'label', 'highlights', 'isOpen', 'overrides', 'isSelectable', 'calendar', 'week', 'day', 'headerDay', 'overlay']);
+        error = _props.error,
+        help = _props.help,
+        label = _props.label,
+        highlights = _props.highlights,
+        isOpen = _props.isOpen,
+        overrides = _props.overrides,
+        isSelectable = _props.isSelectable,
+        calendar = _props.calendar,
+        week = _props.week,
+        day = _props.day,
+        headerDay = _props.headerDay,
+        overlay = _props.overlay,
+        props = _objectWithoutProperties(_props, ['error', 'help', 'label', 'highlights', 'isOpen', 'overrides', 'isSelectable', 'calendar', 'week', 'day', 'headerDay', 'overlay']);
 
       var createElement = _createElementWithOverride2.default.bind(this, overrides);
 
@@ -404,10 +409,10 @@ var UncontrolledDatePicker = function (_React$Component) {
           highlights: highlights,
           overlay: overlay
         }, calendar, {
-          day: day,
-          headerDay: headerDay,
-          className: this.calendarOpened ? 'rev-Calendar--open' : 'rev-Calendar--closed'
-        }))
+            day: day,
+            headerDay: headerDay,
+            className: this.calendarOpened ? 'rev-Calendar--open' : 'rev-Calendar--closed'
+          }))
       );
     }
   }, {

@@ -14,7 +14,7 @@ import { DateTime } from 'luxon'
  * @return {boolean} true is date type inputs are well supported, false otherwise
  */
 function goodDateInput() {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' ) {
     return true
   } else {
     const el = document.createElement('input')
