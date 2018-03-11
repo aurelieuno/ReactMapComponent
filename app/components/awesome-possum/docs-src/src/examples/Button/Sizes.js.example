@@ -1,7 +1,0 @@
-<Row className="ExampleButtons">
-  <Col>
-    <Button small>Small</Button>
-    <Button>Default</Button>
-    <Button large>Large</Button>
-  </Col>
-</Row>
