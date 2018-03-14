@@ -8,7 +8,6 @@ import {
 
 import Home from "./Home";
 import Battle from "./Battle";
-import Popular from "./Popular";
 import TimePicker from "./DatePicker";
 import ModalExample from "./ModalLess";
 import Form2 from "./Form2";
@@ -19,7 +18,8 @@ import StateDrawer from "./StateDrawer";
 import StateModal from "./StateModal";
 import Map from "./Map";
 import Map2 from "./Map2";
-import MongoResults from "./MongoResults";
+import Map3 from "./Map3";
+import Map4 from "./Map4";
 
 const App = () => (
   <BrowserRouter>
@@ -27,7 +27,6 @@ const App = () => (
       <ul className = "nav">
         <li><NavLink exact activeClassName='active' to="/">Menu</NavLink></li>
         <li><NavLink activeClassName='active' to="/battle">CardImage</NavLink></li>
-        <li><NavLink activeClassName='active' to="/popular">Popular</NavLink></li>
         <li><NavLink activeClassName='active' to="/topics">DatePicker</NavLink></li>
         <li><NavLink activeClassName='active' to="/form">ModalLess</NavLink></li>
         <li><NavLink activeClassName='active' to="/form2">Form2</NavLink></li>
@@ -38,13 +37,14 @@ const App = () => (
         <li><NavLink activeClassName='active' to="/drawerP">DrawerP</NavLink></li>
         <li><NavLink activeClassName='active' to="/map">Map</NavLink></li>
         <li><NavLink activeClassName='active' to="/map2">Map2</NavLink></li>
+        <li><NavLink activeClassName='active' to="/map3">Map3</NavLink></li>
+        <li><NavLink activeClassName='active' to="/map4">Map4</NavLink></li>
 
       </ul>
 
       <Switch>
       <Route exact path="/" component={Home}/>
       <Route exact path="/battle" component={Battle}/>
-      <Route exact path="/popular" component={Popular}/>
       <Route path="/topics" component={TimePicker}/>
       <Route path="/form" component={ModalExample}/>
       <Route path="/form2" component={Form2}/>
@@ -55,6 +55,8 @@ const App = () => (
       <Route path="/drawerP" component={DrawerP}/>
       <Route path="/map" component={Map}/>
       <Route path="/map2" component={Map2}/>
+      <Route path="/map3" component={Map3}/>
+      <Route path="/map4" component={Map4}/>
       <Route render={() => (
         <h3>404-Not Found</h3>)}/>
       </Switch>
