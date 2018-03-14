@@ -17,7 +17,8 @@ import NoStateDrawer from "./NoStateDrawer";
 import DrawerP from "./DrawerP";
 import StateDrawer from "./StateDrawer";
 import StateModal from "./StateModal";
-import Results from "./Results1";
+import Map from "./Map";
+import Map2 from "./Map2";
 import MongoResults from "./MongoResults";
 
 const App = () => (
@@ -35,6 +36,8 @@ const App = () => (
         <li><NavLink activeClassName='active' to="/statedrawer">StateDrawer</NavLink></li>
         <li><NavLink activeClassName='active' to="/form5">StateModal</NavLink></li>
         <li><NavLink activeClassName='active' to="/drawerP">DrawerP</NavLink></li>
+        <li><NavLink activeClassName='active' to="/map">Map</NavLink></li>
+        <li><NavLink activeClassName='active' to="/map2">Map2</NavLink></li>
 
       </ul>
 
@@ -50,7 +53,8 @@ const App = () => (
       <Route path="/statedrawer" component={StateDrawer}/>
       <Route path="/form5" component={StateModal}/>
       <Route path="/drawerP" component={DrawerP}/>
-      <Route path="/battle/results" component={Results}/>
+      <Route path="/map" component={Map}/>
+      <Route path="/map2" component={Map2}/>
       <Route render={() => (
         <h3>404-Not Found</h3>)}/>
       </Switch>
