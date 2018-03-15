@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { GoogleApiWrapper } from 'google-maps-react'
 // import child component
 import MapContainer3 from './MapContainer3'
+import Map3Component from './Map3Component'
 
 
 class Map3 extends Component {
@@ -11,7 +12,9 @@ class Map3 extends Component {
     return (
       <div>
         <h1> Google Maps API + React </h1> 
-        <MapContainer3 google={this.props.google} />
+        <Map3Component google={this.props.google} zoom={12} center={{ lat: 40.7485722, lng: -74.0068633 }}>
+        <p>hello</p>  
+        </Map3Component>  
       </div>
     );
   }

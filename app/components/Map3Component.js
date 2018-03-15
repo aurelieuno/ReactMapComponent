@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 
-export default class MapContainer3 extends Component {
+export default class Map3Component extends Component {
 
   componentDidUpdate(prevProps) {
     console.log('prevProp', prevProps);
@@ -27,12 +27,12 @@ export default class MapContainer3 extends Component {
         mapTypeId: 'roadmap' // optional main map layer. Terrain, satellite, hybrid or roadmap--if unspecified, defaults to roadmap.
       })
 
-      // this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
+      // this.mapNew = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
+
       const map = new google.maps.Map(document.getElementById('map2'), {
-        center: { lat: 40.7485722, lng: -74.0068633 }, 
-        zoom: 11, 
+        center: this.props.center,
+        zoom: this.props.zoom,
       });
-      
 
     }
   }
@@ -44,9 +44,12 @@ export default class MapContainer3 extends Component {
     }
 
     return ( // in our return function you must return a div with ref='map' and style.
-      <div ref="map" id ="map2" style={style}>
+    <div>  
+      <div ref="map" id="map2" style={style}>
         loading map...
       </div>
+        {this.props.children}
+    </div>
     )
   }
 }
