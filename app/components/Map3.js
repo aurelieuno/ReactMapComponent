@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 // import the Google Maps API Wrapper from google-maps-react
 import { GoogleApiWrapper } from 'google-maps-react'
 // import child component
-import MapContainer from './MapContainer'
+import MapContainer3 from './MapContainer3'
 
 
 class Map3 extends Component {
   render() {
+    console.log('map3',this.props)
     return (
       <div>
         <h1> Google Maps API + React </h1> 
-        <MapContainer google={this.props.google} />
+        <MapContainer3 google={this.props.google} />
       </div>
     );
   }

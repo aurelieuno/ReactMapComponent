@@ -35,7 +35,11 @@ export default class MapContainer4 extends Component {
         mapTypeId: 'roadmap' // optional main map layer. Terrain, satellite, hybrid or roadmap--if unspecified, defaults to roadmap.
       })
 
-      this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
+      // this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
+      const map = new google.maps.Map(document.getElementById('map2'), {
+        center: { lat: 40.7485722, lng: -74.0068633 },
+        zoom: 11,
+      });
 
       // ==================
       // ADD MARKERS TO MAP
@@ -43,10 +47,21 @@ export default class MapContainer4 extends Component {
       this.state.locations.forEach(location => { // iterate through locations saved in state
         const marker = new google.maps.Marker({ // creates a new Google maps Marker object.
           position: { lat: location.location.lat, lng: location.location.lng }, // sets position of marker to specified location
-          map: this.map, // sets markers to appear on the map we just created on line 35
-          title: location.name // the title of the marker is set to the name of the location
+          map: map, // sets markers to appear on the map we just created on line 35
+          title: location.name, // the title of the marker is set to the name of the location
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          icon: {url: "./app/components/lou.PNG"}
+        });
+        const infowindow = new google.maps.InfoWindow({
+          content: `<h3>${location.name}</h3>`
+        });
+        marker.addListener('click', function () {
+          infowindow.open(map, marker);
         });
       })
+
+    
 
     }
   }
@@ -58,7 +73,7 @@ export default class MapContainer4 extends Component {
     }
 
     return ( // in our return function you must return a div with ref='map' and style.
-      <div ref="map" style={style}>
+      <div ref="map" id="map2" style={style}>
         loading map...
       </div>
     )
