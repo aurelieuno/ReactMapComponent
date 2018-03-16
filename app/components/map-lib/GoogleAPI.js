@@ -11,7 +11,7 @@ export const GoogleApi = function (opts) {
   const client = opts.client;
   const URL = 'https://maps.googleapis.com/maps/api/js';
 
-  const googleVersion = opts.version || '3';
+  const googleVersion = opts.version || '3.32';
 
   let script = null;
   let google = window.google || null;
@@ -29,7 +29,7 @@ export const GoogleApi = function (opts) {
       callback: 'CALLBACK_NAME',
       libraries: libraries.join(','),
       client: client,
-      v: googleVersion,
+      // v: googleVersion,
       channel: channel,
       language: language,
       region: region

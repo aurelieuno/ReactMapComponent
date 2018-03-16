@@ -4,13 +4,13 @@ import ReactDOM from 'react-dom'
 export default class Map3Component extends Component {
 
   componentDidUpdate(prevProps) {
-    console.log('prevProp', prevProps);
-    console.log('container', this.props);
-    console.log()
+    console.log('didUpdateMap3')
+    console.log('this.props', this.props)
     if (prevProps.google !== this.props.google) {
-      this.loadMap();
+      console.log('load map')
+      // this.loadMap();
     }
-    // this.loadMap(); // call loadMap function to load the google map
+    this.loadMap(); // call loadMap function to load the google map
   }
 
   loadMap() {

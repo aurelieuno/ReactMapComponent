@@ -18,8 +18,8 @@ import StateDrawer from "./StateDrawer";
 import StateModal from "./StateModal";
 import Map from "./Map";
 import Map2 from "./Map2";
-import Map3 from "./Map3";
-import Map4 from "./Map4";
+// import Map3 from "./Map3";
+// import Map4 from "./Map4";
 
 const App = () => (
   <BrowserRouter>
@@ -37,8 +37,8 @@ const App = () => (
         <li><NavLink activeClassName='active' to="/drawerP">DrawerP</NavLink></li>
         <li><NavLink activeClassName='active' to="/map">Map</NavLink></li>
         <li><NavLink activeClassName='active' to="/map2">Map2</NavLink></li>
-        <li><NavLink activeClassName='active' to="/map3">Map3</NavLink></li>
-        <li><NavLink activeClassName='active' to="/map4">Map4</NavLink></li>
+{/*         <li><NavLink activeClassName='active' to="/map3">Map3</NavLink></li>
+        <li><NavLink activeClassName='active' to="/map4">Map4</NavLink></li>   */}
 
       </ul>
 
@@ -55,8 +55,8 @@ const App = () => (
       <Route path="/drawerP" component={DrawerP}/>
       <Route path="/map" component={Map}/>
       <Route path="/map2" component={Map2}/>
-      <Route path="/map3" component={Map3}/>
-      <Route path="/map4" component={Map4}/>
+{/*       <Route path="/map3" component={Map3}/>
+      <Route path="/map4" component={Map4}/>  */}
       <Route render={() => (
         <h3>404-Not Found</h3>)}/>
       </Switch>

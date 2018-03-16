@@ -3,6 +3,7 @@ let scriptMap = typeof window !== 'undefined' && window._scriptMap || new Map();
 const window = require('./WindoworGlobal');
 
 export const ScriptCache = (function (global) {
+  console.log('counter', counter)
   global._scriptMap = global._scriptMap || scriptMap;
   return function ScriptCache(scripts) {
     const Cache = {}
@@ -36,6 +37,7 @@ export const ScriptCache = (function (global) {
           let cb;
 
           let handleResult = (state) => {
+            console.log('state handle result', state)
             return (evt) => {
               let stored = scriptMap.get(key);
               if (state === 'loaded') {
@@ -64,9 +66,10 @@ export const ScriptCache = (function (global) {
 
           tag.onload = handleResult('loaded');
           tag.onerror = handleResult('error')
-          tag.onreadystatechange = () => {
-            handleResult(tag.readyState)
-          }
+          // tag.onreadystatechange = () => {
+          //   console.log('script', tag.readyState)
+          //   handleResult(tag.readyState)
+          // }
 
           // Pick off callback, if there is one
           if (src.match(/callback=CALLBACK_NAME/)) {

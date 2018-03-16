@@ -21,6 +21,8 @@ class Map extends React.Component {
 
 
     render() {
+        var head = window.document.getElementsByTagName("head")[0];
+        console.log(head)
         const styleMap = {
             height: '400px',
             width: '400px',
