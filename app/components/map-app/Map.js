@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Map, { Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react'
+import Map, { Marker, GoogleApiWrapper } from '../map-lib'
+import {InfoWindow} from 'google-maps-react'
 
 const Map6 = React.createClass({
     getInitialState: function () {
@@ -77,7 +78,9 @@ const Map6 = React.createClass({
     }
 });
 
-export default Map6
 
+export default GoogleApiWrapper({
+    apiKey: 'AIzaSyDxBUGwd5pLLXciCWvYmdi63XQ9-HdAKrs',
+})(Map6)
 // const mountNode = document.querySelector('#root')
 // ReactDOM.render(<Wrapped />, mountNode)

@@ -8,29 +8,29 @@ export default class Marker extends React.Component {
   https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#MapOptions */
 
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   console.log('didMount', this.props)
     
-    const mapScript = window.document.getElementById("mapScript");
-    if (mapScript) {
-      this.loadMarker();
-    } 
-    console.log(this.props)
-    setTimeout(() => {
-      console.log('hello')
-      this.loadMarker()
-    }, 3000);
+  //   const mapScript = window.document.getElementById("mapScript");
+  //   if (mapScript) {
+  //     console.log('mapScript')
+  //     this.loadMarker();
+  //   } 
+  //   setTimeout(() => {
+  //     this.loadMarker()
+  //   }, 3000);
 
-  }
+  // }
 
   componentDidUpdate() {
-    const mapScript = window.document.getElementById("mapScript");
-    if (mapScript) {
+    console.log('update', this.props);
+    if (this.props.map) {
       this.loadMarker();
-    } 
+    }
   }
 
   loadMarker() {
-    console.log('hellomarker')
+    console.log('LoadMarker')
 
     let {
       map, position, icon, label, draggable, title
@@ -47,11 +47,11 @@ export default class Marker extends React.Component {
 
     Object.keys(markerConfig).forEach(key => {
       // Allow to configure markerConfig with 'false'
-      if (markerConfig[key] === null) {
+      if (markerConfig[key] === undefined) {
         delete markerConfig[key];
       }
     });
-    console.log(markerConfig)
+    console.log('markerConfig',markerConfig)
 
     const marker = new google.maps.Marker(markerConfig);
     return marker;

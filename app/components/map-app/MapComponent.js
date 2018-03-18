@@ -99,11 +99,11 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
 
     Object.keys(mapConfig).forEach(key => {
       // Allow to configure mapConfig with 'false'
-      if (mapConfig[key] === null) {
+      if (mapConfig[key] === undefined) {
         delete mapConfig[key];
       }
     });
-    console.log(mapConfig)
+    console.log('mapConfig',mapConfig)
 
     this.map = new google.maps.Map(document.getElementById('map'), mapConfig);
   }
@@ -115,8 +115,7 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
 
       return React.Children.map(children, c => {
         if (!c) return;
-        console.log(this, 'this')
-        console.log(this.map, 'map')
+        console.log('this', this)
         return React.cloneElement(c, {
           map: this.map,
           // google: this.props.google,
