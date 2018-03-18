@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import the Google Maps API Wrapper from google-maps-react
-import { wrapper } from './map-lib/GoogleAPIComponent'
+import { wrapper } from '../map-lib/GoogleAPIComponent'
 // import child component
 import MapContainer4 from './MapContainer4'
 

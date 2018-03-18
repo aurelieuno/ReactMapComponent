@@ -16,10 +16,11 @@ import NoStateDrawer from "./NoStateDrawer";
 import DrawerP from "./DrawerP";
 import StateDrawer from "./StateDrawer";
 import StateModal from "./StateModal";
-import Map from "./Map";
-import Map2 from "./Map2";
-// import Map3 from "./Map3";
-// import Map4 from "./Map4";
+import Map6 from "./map-app/Map";
+import Map2 from "./map-app/Map2";
+import Map3 from "./map-app/Map3";
+import Map4 from "./map-app/Map4";
+import Map5 from "./map-app/Map5";
 
 const App = () => (
   <BrowserRouter>
@@ -27,19 +28,19 @@ const App = () => (
       <ul className = "nav">
         <li><NavLink exact activeClassName='active' to="/">Menu</NavLink></li>
         <li><NavLink activeClassName='active' to="/battle">CardImage</NavLink></li>
-        <li><NavLink activeClassName='active' to="/topics">DatePicker</NavLink></li>
-        <li><NavLink activeClassName='active' to="/form">ModalLess</NavLink></li>
-        <li><NavLink activeClassName='active' to="/form2">Form2</NavLink></li>
-        <li><NavLink activeClassName='active' to="/builtmodal">BuiltModal</NavLink></li>
-        <li><NavLink activeClassName='active' to="/form4">NoStateDrawer</NavLink></li>
-        <li><NavLink activeClassName='active' to="/statedrawer">StateDrawer</NavLink></li>
-        <li><NavLink activeClassName='active' to="/form5">StateModal</NavLink></li>
-        <li><NavLink activeClassName='active' to="/drawerP">DrawerP</NavLink></li>
-        <li><NavLink activeClassName='active' to="/map">Map</NavLink></li>
+  {/*         <li><NavLink activeClassName='active' to="/topics">DatePicker</NavLink></li>
+          <li><NavLink activeClassName='active' to="/form">ModalLess</NavLink></li>
+          <li><NavLink activeClassName='active' to="/form2">Form2</NavLink></li>
+          <li><NavLink activeClassName='active' to="/builtmodal">BuiltModal</NavLink></li>
+          <li><NavLink activeClassName='active' to="/form4">NoStateDrawer</NavLink></li>
+          <li><NavLink activeClassName='active' to="/statedrawer">StateDrawer</NavLink></li>
+          <li><NavLink activeClassName='active' to="/form5">StateModal</NavLink></li>
+          <li><NavLink activeClassName='active' to="/drawerP">DrawerP</NavLink></li> */}
+        <li><NavLink activeClassName='active' to="/map">Map6</NavLink></li>
         <li><NavLink activeClassName='active' to="/map2">Map2</NavLink></li>
-{/*         <li><NavLink activeClassName='active' to="/map3">Map3</NavLink></li>
-        <li><NavLink activeClassName='active' to="/map4">Map4</NavLink></li>   */}
-
+        <li><NavLink activeClassName='active' to="/map3">Map3</NavLink></li>
+        <li><NavLink activeClassName='active' to="/map4">Map4</NavLink></li>   
+        <li><NavLink activeClassName='active' to="/map5">Map5</NavLink></li>   
       </ul>
 
       <Switch>
@@ -53,10 +54,11 @@ const App = () => (
       <Route path="/statedrawer" component={StateDrawer}/>
       <Route path="/form5" component={StateModal}/>
       <Route path="/drawerP" component={DrawerP}/>
-      <Route path="/map" component={Map}/>
-      <Route path="/map2" component={Map2}/>
-{/*       <Route path="/map3" component={Map3}/>
-      <Route path="/map4" component={Map4}/>  */}
+      <Route path="/map" component={Map6}/>
+      <Route path="/map2" component={Map2} />
+      <Route path="/map3" component={Map3} />
+      <Route path="/map4" component={Map4}/>  
+      <Route path="/map5" component={Map5}/>  
       <Route render={() => (
         <h3>404-Not Found</h3>)}/>
       </Switch>

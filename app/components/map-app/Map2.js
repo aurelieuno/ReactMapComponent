@@ -95,8 +95,6 @@ function loadJS(src) {
       script.src = src;
       console.log(head)
     })
-
-
 }  
 /* First, you need to worry about caching.Typically, the url you're going to be loading is going to be some kind of CGI program. 
 After all, if the output doesn't vary, why bother loading it more than once ? Usually browsers are fairly smart about not caching 

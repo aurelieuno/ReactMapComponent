@@ -52,7 +52,7 @@ export default class MapContainer4 extends Component {
           title: location.name, // the title of the marker is set to the name of the location
           draggable: true,
           animation: google.maps.Animation.DROP,
-          icon: {url: "./app/components/lou.PNG"}
+          // icon: {url: "./app/components/map-app/lou.PNG"}
         });
         const infowindow = new google.maps.InfoWindow({
           content: `<h3>${location.name}</h3>`
@@ -68,8 +68,6 @@ export default class MapContainer4 extends Component {
   }
 
   render() {
-    var head = window.document.getElementsByTagName("head")[0];
-    console.log(head)
 
     const style = { // MUST specify dimensions of the Google map or it will not work. Also works best when style is specified inside the render function and created as an object
       width: '90vw', // 90vw basically means take up 90% of the width screen. px also works.

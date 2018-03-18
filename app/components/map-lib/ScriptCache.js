@@ -11,6 +11,7 @@ export const ScriptCache = (function (global) {
     Cache._onLoad = function (key) {
       return (cb) => {
         let stored = scriptMap.get(key);
+        console.log('key', key)
         if (stored) {
           stored.promise.then(() => {
             stored.error ? cb(stored.error) : cb(null, stored)
@@ -34,6 +35,7 @@ export const ScriptCache = (function (global) {
           tag.async = false; // Load in order
 
           const cbName = `loaderCB${counter++}${Date.now()}`;
+          console.log('cbName', cbName)
           let cb;
 
           let handleResult = (state) => {
@@ -59,7 +61,9 @@ export const ScriptCache = (function (global) {
 
           const cleanup = () => {
             if (global[cbName] && typeof global[cbName] === 'function') {
+              console.log(global[cbName])
               global[cbName] = null;
+              console.log('cleanup')
               delete global[cbName]
             }
           }
@@ -82,6 +86,7 @@ export const ScriptCache = (function (global) {
 
           tag.src = src;
           body.appendChild(tag);
+          console.log('tag', tag)
 
           return tag;
         });
@@ -109,6 +114,7 @@ export const ScriptCache = (function (global) {
     //   }, {});
 
     Object.keys(scripts).forEach(function (key) {
+      console.log('key', key)
       const script = scripts[key];
 
       const tag = window._scriptMap.has(key) ?
@@ -120,6 +126,7 @@ export const ScriptCache = (function (global) {
         onLoad: Cache._onLoad(key),
       }
     })
+    console.log('cache',Cache)
 
     return Cache;
   }

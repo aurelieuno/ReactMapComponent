@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 // import the Google Maps API Wrapper from google-maps-react
-import { wrapper } from './map-lib/GoogleAPIComponent'
+import { wrapper } from '../map-lib/GoogleAPIComponent'
 // import child component
 import MapContainer3 from './MapContainer3'
 import Map3Component from './Map3Component'
-import Lipsum from './awesome-possum/lib/Lipsum'
+import Lipsum from '../awesome-possum/lib/Lipsum'
 
 
 class Map3 extends Component {
