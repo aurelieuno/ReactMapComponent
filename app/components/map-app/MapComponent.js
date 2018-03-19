@@ -3,6 +3,27 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import { camelize } from '../map-lib/lib/String';
 
+const loadJS = (src) => {
+  return new Promise((resolve, reject) => {
+    const script = window.document.createElement("script");
+    script.id = 'mapScript';
+    const head = window.document.getElementsByTagName("head")[0];
+    head.appendChild(script)
+    let handleResult = (state) => {
+      return (evt) => {
+        if (state === 'loaded') {
+          resolve(src);
+        } else if (state === 'error') {
+          reject(evt)
+        }
+      }
+    }
+    script.addEventListener('load', handleResult('loaded'))
+    script.addEventListener('error', handleResult('loaded'));
+    script.src = src;
+  })
+} 
+
 const evtNames = [
   'bounds_changed',
   'center_changed',
@@ -22,50 +43,11 @@ const evtNames = [
   'rightclick',
   'tilesloaded',
   'tilt_changed',
-  'zoom_changed'
+  'zoom_changed',
 ];
 
 export default class MapComponent extends React.Component {
-
-/*See Documentation
-https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#MapOptions */
-
-  static propTypes = {
-    apiKey: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string,
-    center: PropTypes.object.isRequired,
-    clickableIcons: PropTypes.bool,
-    disableDefaultUI: PropTypes.bool,
-    disableDoubleClickZoom: PropTypes.bool,
-    draggable: PropTypes.bool,
-    draggableCursor: PropTypes.string,
-    draggingCursor: PropTypes.string,
-    fullscreenControl: PropTypes.bool,
-    gestureHandling: PropTypes.string,
-    heading: PropTypes.number,
-    keyboardShortcuts: PropTypes.bool,
-    mapTypeControl: PropTypes.bool,
-    mapTypeId: PropTypes.string,
-    maxZoom: PropTypes.number,
-    minZoom: PropTypes.number,
-    noClear: PropTypes.bool,
-    panControl: PropTypes.bool,
-    rotateControl: PropTypes.bool,
-    scaleControl: PropTypes.bool,
-    scrollwheel: PropTypes.bool,
-    streetViewControl: PropTypes.bool,
-    style: PropTypes.object.isRequired,
-    styles: PropTypes.array,
-    tilt: PropTypes.number,
-    zoom: PropTypes.number,
-    zoomControl: PropTypes.bool,
-    
-    centerAroundCurrentLocation: PropTypes.bool,
-    initialCenter: PropTypes.object,
-    className: PropTypes.string,
-    visible: PropTypes.bool,
-  };
-
+  
   componentDidMount() {
     const mapScript = window.document.getElementById("mapScript");
     if (!mapScript) {
@@ -126,6 +108,7 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
     evtNames.forEach(e => {
       this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
     });
+    console.log('this', this)
 
 /*  https://reactjs.org/docs/react-component.html#forceupdate
     https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
@@ -151,8 +134,6 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
         if (!c) return;
         return React.cloneElement(c, {
           map: this.map,
-          // google: this.props.google,
-          // mapCenter: this.state.currentLocation
         });
       });
   }
@@ -160,7 +141,7 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
   render() {
     return ( // in our return function you must return a div with ref='map' and style.
       <div>
-        <div id="map" ref="map" style={this.props.style}>
+        <div id="map" style={this.props.style}>
           loading map...
       </div>
         {this.renderChildren()}
@@ -170,23 +151,43 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
   }
 }
 
-function loadJS(src) {
-  return new Promise((resolve, reject) => {
-    const script = window.document.createElement("script");
-    script.id = 'mapScript';
-    const head = window.document.getElementsByTagName("head")[0];
-    head.appendChild(script)
-    let handleResult = (state) => {
-      return (evt) => {
-        if (state === 'loaded') {
-          resolve(src);
-        } else if (state === 'error') {
-          reject(evt)
-        }
-      }
-    }
-    script.addEventListener('load', handleResult('loaded'))
-    script.addEventListener('error', handleResult('loaded'));
-    script.src = src;
-  })
-}  
+/*See Documentation
+https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#MapOptions */
+
+  Map.propTypes = {
+  apiKey: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string,
+  center: PropTypes.object.isRequired,
+  clickableIcons: PropTypes.bool,
+  disableDefaultUI: PropTypes.bool,
+  disableDoubleClickZoom: PropTypes.bool,
+  draggable: PropTypes.bool,
+  draggableCursor: PropTypes.string,
+  draggingCursor: PropTypes.string,
+  fullscreenControl: PropTypes.bool,
+  gestureHandling: PropTypes.string,
+  heading: PropTypes.number,
+  keyboardShortcuts: PropTypes.bool,
+  mapTypeControl: PropTypes.bool,
+  mapTypeId: PropTypes.string,
+  maxZoom: PropTypes.number,
+  minZoom: PropTypes.number,
+  noClear: PropTypes.bool,
+  panControl: PropTypes.bool,
+  rotateControl: PropTypes.bool,
+  scaleControl: PropTypes.bool,
+  scrollwheel: PropTypes.bool,
+  streetViewControl: PropTypes.bool,
+  style: PropTypes.object.isRequired,
+  styles: PropTypes.array,
+  tilt: PropTypes.number,
+  zoom: PropTypes.number,
+  zoomControl: PropTypes.bool,
+
+  centerAroundCurrentLocation: PropTypes.bool,
+  initialCenter: PropTypes.object,
+  className: PropTypes.string,
+  visible: PropTypes.bool,
+};
+
+evtNames.forEach(e => (Map.propTypes[camelize(e)] = PropTypes.func));
