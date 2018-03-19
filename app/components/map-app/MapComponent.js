@@ -1,6 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
+import { camelize } from '../map-lib/lib/String';
+
+const evtNames = [
+  'bounds_changed',
+  'center_changed',
+  'click',
+  'dblclick',
+  'drag',
+  'dragend',
+  'dragstart',
+  'heading_changed',
+  'idle',
+  'maptypeid_changed',
+  'mousemove',
+  'mouseout',
+  'mouseover',
+  'projection_changed',
+  'resize',
+  'rightclick',
+  'tilesloaded',
+  'tilt_changed',
+  'zoom_changed'
+];
 
 export default class MapComponent extends React.Component {
 
@@ -9,6 +32,7 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
 
   static propTypes = {
     apiKey: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string,
     center: PropTypes.object.isRequired,
     clickableIcons: PropTypes.bool,
     disableDefaultUI: PropTypes.bool,
@@ -39,7 +63,6 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
     centerAroundCurrentLocation: PropTypes.bool,
     initialCenter: PropTypes.object,
     className: PropTypes.string,
-    containerStyle: PropTypes.object,
     visible: PropTypes.bool,
   };
 
@@ -63,8 +86,9 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
   loadMap() {
     const mapConfig = {
       apiKey: this.props.apiKey,
+      backgroundColor: this.props.backgroundColor,
       center: this.props.center,
-      clickableIcons: this.props.clickableIcons,
+      clickableIcons: !!this.props.clickableIcons,
       disableDefaultUI: this.props.disableDefaultUI,
       disableDoubleClickZoom: this.props.disableDoubleClickZoom,
       draggable: this.props.draggable,
@@ -97,15 +121,25 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
       visible: this.props.visible,
     };
 
-    Object.keys(mapConfig).forEach(key => {
-      // Allow to configure mapConfig with 'false'
-      if (mapConfig[key] === undefined) {
-        delete mapConfig[key];
-      }
-    });
-    console.log('mapConfig',mapConfig)
-
     this.map = new google.maps.Map(document.getElementById('map'), mapConfig);
+    this.listeners = {};
+    evtNames.forEach(e => {
+      this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
+    });
+
+/*  https://reactjs.org/docs/react-component.html#forceupdate
+    https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
+    this.forceUpdate();
+
+  }
+
+  handleEvent(evt) {
+    return (e) => {
+      const evtName = `on${camelize(evt)}`
+      if (this.props[evtName]) {
+        this.props[evtName](this.props, this.map, e);
+      }
+    }
   }
 
   renderChildren = () => {
@@ -115,7 +149,6 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
 
       return React.Children.map(children, c => {
         if (!c) return;
-        console.log('this', this)
         return React.cloneElement(c, {
           map: this.map,
           // google: this.props.google,

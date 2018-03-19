@@ -24,7 +24,8 @@ export default class Map5 extends Component {
           <Marker
             position={{ lat: 40.7143033, lng: -74.0036919 }} />
           <Lipsum />
-        </MapComponent>
+          </MapComponent>
+          <Lipsum />
       </div>
     );
   }

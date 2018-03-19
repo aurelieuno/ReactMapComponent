@@ -47,6 +47,7 @@ const Map6 = React.createClass({
                 style={{ width: '100%', height: '100%', position: 'relative' }}
                 className={'map'}
                 zoom={14}
+                center={{ lat: 37.759703, lng: -122.428093 }}
                 onClick={this.onMapClicked}>
                 <Marker
                     onClick={this.onMarkerClick}
@@ -55,8 +56,10 @@ const Map6 = React.createClass({
                 <Marker
                     onClick={this.onMarkerClick}
                     name={'Dolores park'}
-                    position={{ lat: 37.759703, lng: -122.428093 }} />
-                <Marker onClick={this.onMarkerClick}
+                    position={{ lat: 37.759703, lng: -122.428093 }}
+                />
+                <Marker
+                    onClick={this.onMarkerClick}
                     name={'Current location'} />
 
                 <InfoWindow
@@ -66,12 +69,6 @@ const Map6 = React.createClass({
                     <div>
                         <h1>{this.state.selectedPlace.name}</h1>
                     </div>
-                </InfoWindow>
-
-                <InfoWindow
-                    position={{ lat: 37.765703, lng: -122.425640 }}
-                    visible={true}>
-                    <small>Click on any of the markers to display an additional info.</small>
                 </InfoWindow>
             </Map>
         )

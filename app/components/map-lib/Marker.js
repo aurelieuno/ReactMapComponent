@@ -30,13 +30,11 @@ const wrappedPromise = function () {
 export class Marker extends React.Component {
 
   componentDidMount() {
-    console.log('this.props.marker', this.props)
     this.markerPromise = wrappedPromise();
     this.renderMarker();
   }
 
   componentDidUpdate(prevProps) {
-    console.log('this.props.marker.didUpdate', this.props)
 
     if ((this.props.map !== prevProps.map) ||
       (this.props.position !== prevProps.position) ||

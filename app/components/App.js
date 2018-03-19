@@ -16,7 +16,7 @@ import NoStateDrawer from "./NoStateDrawer";
 import DrawerP from "./DrawerP";
 import StateDrawer from "./StateDrawer";
 import StateModal from "./StateModal";
-import Map6 from "./map-app/Map";
+import Map6 from "./map-app/Map6";
 import Map2 from "./map-app/Map2";
 import Map3 from "./map-app/Map3";
 import Map4 from "./map-app/Map4";

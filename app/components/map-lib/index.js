@@ -21,15 +21,14 @@ const mapStyles = {
 };
 
 const evtNames = [
-  'ready',
-  'click',
-  'dragend',
-  'recenter',
   'bounds_changed',
   'center_changed',
+  'click',
   'dblclick',
+  'drag',
+  'dragend',
   'dragstart',
-  'heading_change',
+  'heading_changed',
   'idle',
   'maptypeid_changed',
   'mousemove',
@@ -182,22 +181,34 @@ export class Map extends React.Component {
     }
   }
 
-  handleEvent(evtName) {
-    let timeout;
-    const handlerName = `on${camelize(evtName)}`;
-
-    return e => {
-      if (timeout) {
-        clearTimeout(timeout);
-        timeout = null;
+  handleEvent(evt) {
+    return (e) => {
+      const evtName = `on${camelize(evt)}`
+      if (this.props[evtName]) {
+        this.props[evtName](this.props, this.map, e);
       }
-      timeout = setTimeout(() => {
-        if (this.props[handlerName]) {
-          this.props[handlerName](this.props, this.map, e);
-        }
-      }, 0);
-    };
+    }
   }
+
+  // handleEvent(evtName) {
+
+  //   let timeout;
+  //   const handlerName = `on${camelize(evtName)}`;
+    
+  //   return e => {
+  //     console.log('evtName', evtName);
+  //     if (timeout) {
+  //       console.log('timeout', timeout)
+  //       clearTimeout(timeout);
+  //       timeout = null;
+  //     }
+  //     timeout = setTimeout(() => {
+  //       if (this.props[handlerName]) {
+  //         this.props[handlerName](this.props, this.map, e);
+  //       }
+  //     }, 0);
+  //   };
+  // }
 
   recenterMap() {
     const map = this.map;
@@ -232,7 +243,6 @@ export class Map extends React.Component {
 
     return React.Children.map(children, c => {
       if (!c) return;
-      console.log('index-this', this)
       return React.cloneElement(c, {
         map: this.map,
         google: this.props.google,
