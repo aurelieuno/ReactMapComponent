@@ -60,6 +60,12 @@ export default class MapComponent extends React.Component {
   componentDidUpdate() {
   }
 
+  componentWillUnmount() {
+    Object.keys(this.listeners).forEach(e => {
+      google.maps.event.removeListener(this.listeners[e]);
+    });
+  }
+
   initMap = async () => {
     await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}`)
     this.loadMap();
@@ -96,19 +102,18 @@ export default class MapComponent extends React.Component {
       zoom: this.props.zoom,
       zoomControl: this.props.zoomControl,
 
-      centerAroundCurrentLocation: this.props.centerAroundCurrentLocation,
-      initialCenter: this.props.initialCenter,
-      className: this.props.className,
-      containerStyle: this.props.containerStyle,
-      visible: this.props.visible,
+      // centerAroundCurrentLocation: this.props.centerAroundCurrentLocation,
+      // initialCenter: this.props.initialCenter,
+      // className: this.props.className,
+      // containerStyle: this.props.containerStyle,
+      // visible: this.props.visible,
     };
 
     this.map = new google.maps.Map(document.getElementById('map'), mapConfig);
-    this.listeners = {};
+    this.listeners = {};//not sure of this purpose
     evtNames.forEach(e => {
       this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
     });
-    console.log('this', this)
 
 /*  https://reactjs.org/docs/react-component.html#forceupdate
     https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
@@ -120,7 +125,7 @@ export default class MapComponent extends React.Component {
     return (e) => {
       const evtName = `on${camelize(evt)}`
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.map, e);
+        this.props[evtName](this.props, this.map, e); //***purpose of passing this.props?* */
       }
     }
   }
@@ -139,7 +144,7 @@ export default class MapComponent extends React.Component {
   }
 
   render() {
-    return ( // in our return function you must return a div with ref='map' and style.
+    return ( 
       <div>
         <div id="map" style={this.props.style}>
           loading map...

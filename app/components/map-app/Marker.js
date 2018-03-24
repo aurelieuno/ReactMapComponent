@@ -1,15 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
+import { camelize } from '../map-lib/lib/String'
+
+/*See Documentation
+https://developers.google.com/maps/documentation/javascript/markers */
+
+const evtNames = [
+  'click',
+  'dblclick',
+  'dragend',
+  'mousedown',
+  'mouseout',
+  'mouseover',
+  'mouseup',
+  'recenter',
+];
 
 export default class Marker extends React.Component {
 
-  /*See Documentation
-  https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#MapOptions */
-
   componentDidUpdate(prevProps) {
     console.log('prevProps', prevProps)
-    console.log('this.props', this.props)
+    console.log('this.props', this.props) //relies on gitclone
     if (this.props && this.props.map) {
       this.loadMarker();
     }
@@ -23,7 +35,7 @@ export default class Marker extends React.Component {
 
   loadMarker() {
     let {
-      map, position, icon, label, draggable, title
+      map, position, icon, label, title, draggable, animation
     } = this.props;
 
     const markerConfig = {
@@ -32,23 +44,40 @@ export default class Marker extends React.Component {
       icon: icon,
       label: label,
       title: title,
-      draggable: draggable
+      draggable: draggable,
+      // animation: animation, /* how to deal with animation, state of the big container, wrapper? */
     };
 
-/*     Object.keys(markerConfig).forEach(key => {
-      // Allow to configure markerConfig with 'false'
-      if (markerConfig[key] === undefined) {
-        delete markerConfig[key];
-      }
-    }); */
-
     this.marker = new google.maps.Marker(markerConfig);
+    evtNames.forEach(e => {
+      this.marker.addListener(e, this.handleEvent(e));
+    });
     return this.marker;
+  }
+
+  handleEvent(evt) {
+    return (e) => {
+      const evtName = `on${camelize(evt)}`
+      if (this.props[evtName]) {
+        this.props[evtName](this.props, this.marker, e); //***purpose of passing this.props?* */
+      }
+    }
   }
 
   render() {
     return null;
   }
 }
+
+Marker.propTypes = {
+  map: PropTypes.object,
+  position: PropTypes.object.isRequired,
+  icon: PropTypes.object,
+  label: PropTypes.string,
+  title: PropTypes.string,
+  draggable: PropTypes.bool,
+}
+
+evtNames.forEach(e => Marker.propTypes[e] = PropTypes.func)
 
  

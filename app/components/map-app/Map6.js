@@ -29,6 +29,7 @@ const Map6 = React.createClass({
     },
 
     onMapClicked: function (props) {
+        console.log('props map 6',props)
         if (this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
