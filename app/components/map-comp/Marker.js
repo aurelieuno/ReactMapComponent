@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
 import { camelize } from '../map-lib/lib/String'
 
 /*See Documentation
@@ -19,9 +18,7 @@ const evtNames = [
 
 export default class Marker extends React.Component {
 
-  componentDidUpdate(prevProps) {
-    console.log('prevProps', prevProps)
-    console.log('this.props', this.props) //relies on gitclone
+  componentDidUpdate() {
     if (this.props && this.props.map) {
       this.loadMarker();
     }
