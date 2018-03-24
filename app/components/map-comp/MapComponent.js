@@ -1,28 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
-import { camelize } from '../map-lib/lib/String';
-
-const loadJS = (src) => {
-  return new Promise((resolve, reject) => {
-    const script = window.document.createElement("script");
-    script.id = 'mapScript';
-    const head = window.document.getElementsByTagName("head")[0];
-    head.appendChild(script)
-    let handleResult = (state) => {
-      return (evt) => {
-        if (state === 'loaded') {
-          resolve(src);
-        } else if (state === 'error') {
-          reject(evt)
-        }
-      }
-    }
-    script.addEventListener('load', handleResult('loaded'))
-    script.addEventListener('error', handleResult('loaded'));
-    script.src = src;
-  })
-} 
+import { camelize, loadJS } from './Utils';
 
 const evtNames = [
   'bounds_changed',

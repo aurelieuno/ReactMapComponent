@@ -4,7 +4,7 @@ import MapComponent from './MapComponent'
 import Lipsum from '../awesome-possum/lib/Lipsum'
 
 
-export default class Map5 extends Component {
+export default class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
     selectedPlace: {},

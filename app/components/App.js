@@ -20,7 +20,7 @@ import Map6 from "./map-app/Map6";
 import Map2 from "./map-app/Map2";
 import Map3 from "./map-app/Map3";
 import Map4 from "./map-app/Map4";
-import Map5 from "./map-comp/Map5";
+import MapContainer from "./map-comp/MapContainer";
 
 const App = () => (
   <BrowserRouter>
@@ -58,7 +58,7 @@ const App = () => (
       <Route path="/map2" component={Map2} />
       <Route path="/map3" component={Map3} />
       <Route path="/map4" component={Map4}/>  
-      <Route path="/map5" component={Map5}/>  
+      <Route path="/map5" component={MapContainer}/>  
       <Route render={() => (
         <h3>404-Not Found</h3>)}/>
       </Switch>
