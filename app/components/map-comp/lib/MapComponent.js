@@ -114,9 +114,7 @@ export default class MapComponent extends Component {
 
   renderChildren() {
     const { children } = this.props;
-
     if (!children) return;
-
     return React.Children.map(children, (c) => {
       if (!c) return;
       return React.cloneElement(c, {
