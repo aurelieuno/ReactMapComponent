@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Marker from './Marker'
-import InfoWindow from './InfoWindow'
-import MapComponent from './MapComponent'
-import {MAP_API_KEY} from '../../config'
+import Marker from './lib/Marker'
+import InfoWindow from './lib/InfoWindow'
+import MapComponent from './lib/MapComponent'
+import { MAP_API_KEY } from '../../config'
 
 export default class MapContainer2 extends Component {
   state = {
@@ -45,7 +45,6 @@ export default class MapContainer2 extends Component {
           <Marker
             position={{ lat: 40.7143033, lng: -74.0036919 }}
             name={'Museum'}
-            icon= {{'url': "./app/components/map-comp/lou.PNG"}}
             onClick={this.onMarkerClick}
           />
           <Marker

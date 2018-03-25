@@ -45,6 +45,8 @@ export default class Marker extends React.Component {
       // animation: animation, /* how to deal with animation, state of the big container, wrapper? */
     };
 
+    
+
     this.marker = new google.maps.Marker(markerConfig);
     evtNames.forEach(e => {
       this.marker.addListener(e, this.handleEvent(e));
