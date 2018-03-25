@@ -1,28 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
-import { camelize } from '../map-lib/lib/String';
-
-const loadJS = (src) => {
-  return new Promise((resolve, reject) => {
-    const script = window.document.createElement("script");
-    script.id = 'mapScript';
-    const head = window.document.getElementsByTagName("head")[0];
-    head.appendChild(script)
-    let handleResult = (state) => {
-      return (evt) => {
-        if (state === 'loaded') {
-          resolve(src);
-        } else if (state === 'error') {
-          reject(evt)
-        }
-      }
-    }
-    script.addEventListener('load', handleResult('loaded'))
-    script.addEventListener('error', handleResult('loaded'));
-    script.src = src;
-  })
-} 
+import { camelize, loadJS } from './Utils'
 
 const evtNames = [
   'bounds_changed',
@@ -60,13 +38,19 @@ export default class MapComponent extends React.Component {
   componentDidUpdate() {
   }
 
+  componentWillUnmount() {
+    Object.keys(this.listeners).forEach(e => {
+      google.maps.event.removeListener(this.listeners[e]);
+    });
+  }
+
   initMap = async () => {
     await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}`)
     this.loadMap();
   }
 
-  loadMap() {
-    const mapConfig = {
+  loadMap = () => {
+    this.mapConfig = {
       apiKey: this.props.apiKey,
       backgroundColor: this.props.backgroundColor,
       center: this.props.center,
@@ -96,19 +80,25 @@ export default class MapComponent extends React.Component {
       zoom: this.props.zoom,
       zoomControl: this.props.zoomControl,
 
-      centerAroundCurrentLocation: this.props.centerAroundCurrentLocation,
-      initialCenter: this.props.initialCenter,
-      className: this.props.className,
-      containerStyle: this.props.containerStyle,
-      visible: this.props.visible,
+      // centerAroundCurrentLocation: this.props.centerAroundCurrentLocation,
+      // initialCenter: this.props.initialCenter,
+      // className: this.props.className,
+      // containerStyle: this.props.containerStyle,
+      // visible: this.props.visible,
     };
 
-    this.map = new google.maps.Map(document.getElementById('map'), mapConfig);
-    this.listeners = {};
-    evtNames.forEach(e => {
-      this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
-    });
-    console.log('this', this)
+    if (this.props.addressCenter) {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'address': this.props.addressCenter }, (results, status) => {
+        if (status === 'OK') {
+          this.mapConfig.center = results[0].geometry.location;
+          this.buildMap();
+        }
+      });
+    } else {
+      this.buildMap();
+    }
+
 
 /*  https://reactjs.org/docs/react-component.html#forceupdate
     https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
@@ -116,11 +106,19 @@ export default class MapComponent extends React.Component {
 
   }
 
-  handleEvent(evt) {
+  buildMap = () => {
+    this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
+    this.listeners = {};//attached to MapComponent
+    evtNames.forEach(e => {
+      this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
+    });
+  }
+
+  handleEvent = (evt) => {
     return (e) => {
       const evtName = `on${camelize(evt)}`
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.map, e);
+        this.props[evtName](this.props, this.map, e); 
       }
     }
   }
@@ -139,7 +137,7 @@ export default class MapComponent extends React.Component {
   }
 
   render() {
-    return ( // in our return function you must return a div with ref='map' and style.
+    return ( 
       <div>
         <div id="map" style={this.props.style}>
           loading map...
