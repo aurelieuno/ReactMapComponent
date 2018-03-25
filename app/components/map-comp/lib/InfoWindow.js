@@ -1,7 +1,7 @@
-import React from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class InfoWindow extends React.Component {
+export default class InfoWindow extends Component {
   componentDidUpdate() {
     // console.log('this.props infoWindow', this.props) //relies on gitclone
     if (this.props.marker === null) {
@@ -38,8 +38,8 @@ export default class InfoWindow extends React.Component {
 }
 
 InfoWindow.propTypes = {
-  map: PropTypes.object.isRequired,
-  marker: PropTypes.object.isRequired,
+  map: PropTypes.object,
+  marker: PropTypes.object,
   content: PropTypes.string.isRequired,
 };
 

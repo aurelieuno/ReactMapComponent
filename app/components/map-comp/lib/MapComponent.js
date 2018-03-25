@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { camelize, loadJS } from './Utils'
 
@@ -24,7 +24,7 @@ const evtNames = [
   'zoom_changed',
 ];
 
-export default class MapComponent extends React.Component {
+export default class MapComponent extends Component {
   
   componentDidMount() {
     const mapScript = window.document.getElementById("mapScript");

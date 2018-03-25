@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { camelize } from './Utils'
+import { Component } from 'react';
+import PropTypes from 'prop-types';
+import { camelize } from './Utils';
 
-/*See Documentation
+/* See Documentation
 https://developers.google.com/maps/documentation/javascript/markers */
 
 const evtNames = [
@@ -16,8 +16,7 @@ const evtNames = [
   'recenter',
 ];
 
-export default class Marker extends React.Component {
-
+export default class Marker extends Component {
   componentDidUpdate() {
     if (this.props && this.props.map) {
       this.loadMarker();
@@ -31,24 +30,23 @@ export default class Marker extends React.Component {
   }
 
   loadMarker() {
-    let {
-      map, position, icon, label, title, draggable, animation
+    const {
+      map, position, icon, label, title, draggable,
     } = this.props;
 
     const markerConfig = {
-      map: map,
-      position: position,
-      icon: icon,
-      label: label,
-      title: title,
-      draggable: draggable,
+      map,
+      position,
+      icon,
+      label,
+      title,
+      draggable,
       // animation: animation, /* how to deal with animation, state of the big container, wrapper? */
     };
 
-    
 
     this.marker = new google.maps.Marker(markerConfig);
-    evtNames.forEach(e => {
+    evtNames.forEach((e) => {
       this.marker.addListener(e, this.handleEvent(e));
     });
     return this.marker;
@@ -56,11 +54,11 @@ export default class Marker extends React.Component {
 
   handleEvent(evt) {
     return (e) => {
-      const evtName = `on${camelize(evt)}`
+      const evtName = `on${camelize(evt)}`;
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.marker, e); //***purpose of passing this.props?* */
+        this.props[evtName](this.props, this.marker, e); //* **purpose of passing this.props?* */
       }
-    }
+    };
   }
 
   render() {
@@ -75,8 +73,6 @@ Marker.propTypes = {
   label: PropTypes.string,
   title: PropTypes.string,
   draggable: PropTypes.bool,
-}
+};
 
-evtNames.forEach(e => Marker.propTypes[e] = PropTypes.func)
-
- 
+evtNames.forEach(e => (Marker.propTypes[camelize(e)] = PropTypes.func));
