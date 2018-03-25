@@ -43,13 +43,8 @@ export default class MapContainer2 extends Component {
           onClick={this.onMapClicked}
         >
           <Marker
-            position={{ lat: 40.7143033, lng: -74.0036919 }}
-            name={'Museum'}
-            onClick={this.onMarkerClick}
-          />
-          <Marker
-            position={{ lat: 40.7243033, lng: -74.0136919 }}
-            name={'Aqua'}
+            position={'Chelsea Market, 75 9th Ave, New York, NY 10011'}
+            name={'Chelsea Market'}
             onClick={this.onMarkerClick}
           />
           <InfoWindow

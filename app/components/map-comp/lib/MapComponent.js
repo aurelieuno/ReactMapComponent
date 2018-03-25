@@ -35,9 +35,6 @@ export default class MapComponent extends Component {
     }
   }
 
-  componentDidUpdate() {
-  }
-
   componentWillUnmount() {
     Object.keys(this.listeners).forEach(e => {
       google.maps.event.removeListener(this.listeners[e]);
@@ -49,7 +46,7 @@ export default class MapComponent extends Component {
     this.loadMap();
   }
 
-  loadMap = () => {
+  loadMap()  {
     this.mapConfig = {
       apiKey: this.props.apiKey,
       backgroundColor: this.props.backgroundColor,
@@ -87,9 +84,9 @@ export default class MapComponent extends Component {
       // visible: this.props.visible,
     };
 
-    if (this.props.addressCenter) {
+    if (typeof this.props.center === 'string') {
       const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ 'address': this.props.addressCenter }, (results, status) => {
+      geocoder.geocode({ address: this.props.center }, (results, status) => {
         if (status === 'OK') {
           this.mapConfig.center = results[0].geometry.location;
           this.buildMap();
@@ -98,23 +95,20 @@ export default class MapComponent extends Component {
     } else {
       this.buildMap();
     }
-
-
-/*  https://reactjs.org/docs/react-component.html#forceupdate
-    https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
-    this.forceUpdate();
-
   }
-
-  buildMap = () => {
+  
+  buildMap() {
     this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
     this.listeners = {};//attached to MapComponent
     evtNames.forEach(e => {
       this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
     });
+    this.forceUpdate();
+/*  https://reactjs.org/docs/react-component.html#forceupdate
+    https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
   }
 
-  handleEvent = (evt) => {
+  handleEvent(evt) {
     return (e) => {
       const evtName = `on${camelize(evt)}`
       if (this.props[evtName]) {
@@ -123,7 +117,7 @@ export default class MapComponent extends Component {
     }
   }
 
-  renderChildren = () => {
+  renderChildren() {
     const { children } = this.props;
 
     if (!children) return;
@@ -143,7 +137,6 @@ export default class MapComponent extends Component {
           loading map...
       </div>
         {this.renderChildren()}
-
       </div>
     )
   }
@@ -155,7 +148,7 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
   Map.propTypes = {
   apiKey: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
-  center: PropTypes.object.isRequired,
+  center: PropTypes.object.isRequired || PropTypes.string.isRequired,
   clickableIcons: PropTypes.bool,
   disableDefaultUI: PropTypes.bool,
   disableDoubleClickZoom: PropTypes.bool,

@@ -34,18 +34,32 @@ export default class Marker extends Component {
       map, position, icon, label, title, draggable,
     } = this.props;
 
-    const markerConfig = {
+    this.markerConfig = {
       map,
       position,
       icon,
       label,
       title,
       draggable,
-      // animation: animation, /* how to deal with animation, state of the big container, wrapper? */
+      // animation: animation
+      /* how to deal with animation, state of the big container, wrapper? */
     };
 
+    if (typeof this.props.position === 'string') {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: this.props.position }, (results, status) => {
+        if (status === 'OK') {
+          this.markerConfig.position = results[0].geometry.location;
+          this.buildMarker();
+        }
+      });
+    } else {
+      this.buildMarker();
+    }
+  }
 
-    this.marker = new google.maps.Marker(markerConfig);
+  buildMarker() {
+    this.marker = new google.maps.Marker(this.markerConfig);
     evtNames.forEach((e) => {
       this.marker.addListener(e, this.handleEvent(e));
     });
@@ -68,7 +82,7 @@ export default class Marker extends Component {
 
 Marker.propTypes = {
   map: PropTypes.object,
-  position: PropTypes.object.isRequired,
+  // position: PropTypes.object.isRequired || PropTypes.string.isRequired,
   icon: PropTypes.object,
   label: PropTypes.string,
   title: PropTypes.string,
