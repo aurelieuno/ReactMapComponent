@@ -51,6 +51,8 @@ export default class Marker extends Component {
         if (status === 'OK') {
           this.markerConfig.position = results[0].geometry.location;
           this.buildMarker();
+        } else {
+          alert(`Marker geocoder problem type: ${status}`);
         }
       });
     } else {
@@ -82,7 +84,10 @@ export default class Marker extends Component {
 
 Marker.propTypes = {
   map: PropTypes.object,
-  // position: PropTypes.object.isRequired || PropTypes.string.isRequired,
+  position: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
   icon: PropTypes.object,
   label: PropTypes.string,
   title: PropTypes.string,

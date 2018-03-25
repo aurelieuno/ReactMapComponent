@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { camelize, loadJS } from './Utils'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { camelize, loadJS } from './Utils';
 
 const evtNames = [
   'bounds_changed',
@@ -25,28 +25,27 @@ const evtNames = [
 ];
 
 export default class MapComponent extends Component {
-  
   componentDidMount() {
-    const mapScript = window.document.getElementById("mapScript");
+    const mapScript = window.document.getElementById('mapScript');
     if (!mapScript) {
       this.initMap();
     } else {
-      this.loadMap()
+      this.loadMap();
     }
   }
 
   componentWillUnmount() {
-    Object.keys(this.listeners).forEach(e => {
+    Object.keys(this.listeners).forEach((e) => {
       google.maps.event.removeListener(this.listeners[e]);
     });
   }
 
   initMap = async () => {
-    await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}`)
+    await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}`);
     this.loadMap();
   }
 
-  loadMap()  {
+  loadMap() {
     this.mapConfig = {
       apiKey: this.props.apiKey,
       backgroundColor: this.props.backgroundColor,
@@ -76,12 +75,6 @@ export default class MapComponent extends Component {
       tilt: this.props.tilt,
       zoom: this.props.zoom,
       zoomControl: this.props.zoomControl,
-
-      // centerAroundCurrentLocation: this.props.centerAroundCurrentLocation,
-      // initialCenter: this.props.initialCenter,
-      // className: this.props.className,
-      // containerStyle: this.props.containerStyle,
-      // visible: this.props.visible,
     };
 
     if (typeof this.props.center === 'string') {
@@ -90,31 +83,33 @@ export default class MapComponent extends Component {
         if (status === 'OK') {
           this.mapConfig.center = results[0].geometry.location;
           this.buildMap();
+        } else {
+          alert(`Map geocoder problem type: ${status}`);
         }
       });
     } else {
       this.buildMap();
     }
   }
-  
+
   buildMap() {
     this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
-    this.listeners = {};//attached to MapComponent
-    evtNames.forEach(e => {
+    this.listeners = {};// attached to MapComponent
+    evtNames.forEach((e) => {
       this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
     });
     this.forceUpdate();
-/*  https://reactjs.org/docs/react-component.html#forceupdate
+    /*  https://reactjs.org/docs/react-component.html#forceupdate
     https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
   }
 
   handleEvent(evt) {
     return (e) => {
-      const evtName = `on${camelize(evt)}`
+      const evtName = `on${camelize(evt)}`;
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.map, e); 
+        this.props[evtName](this.props, this.map, e);
       }
-    }
+    };
   }
 
   renderChildren() {
@@ -122,33 +117,37 @@ export default class MapComponent extends Component {
 
     if (!children) return;
 
-      return React.Children.map(children, c => {
-        if (!c) return;
-        return React.cloneElement(c, {
-          map: this.map,
-        });
+    return React.Children.map(children, (c) => {
+      if (!c) return;
+      return React.cloneElement(c, {
+        map: this.map,
       });
+    });
   }
 
   render() {
-    return ( 
+    return (
       <div>
         <div id="map" style={this.props.style}>
           loading map...
-      </div>
+        </div>
         {this.renderChildren()}
       </div>
-    )
+    );
   }
 }
 
-/*See Documentation
+/* See Documentation
 https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#MapOptions */
 
-  Map.propTypes = {
+MapComponent.propTypes = {
   apiKey: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
-  center: PropTypes.object.isRequired || PropTypes.string.isRequired,
+  center: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
+  children: PropTypes.array,
   clickableIcons: PropTypes.bool,
   disableDefaultUI: PropTypes.bool,
   disableDoubleClickZoom: PropTypes.bool,
@@ -174,11 +173,6 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
   tilt: PropTypes.number,
   zoom: PropTypes.number,
   zoomControl: PropTypes.bool,
-
-  centerAroundCurrentLocation: PropTypes.bool,
-  initialCenter: PropTypes.object,
-  className: PropTypes.string,
-  visible: PropTypes.bool,
 };
 
-evtNames.forEach(e => (Map.propTypes[camelize(e)] = PropTypes.func));
+evtNames.forEach(e => (MapComponent.propTypes[camelize(e)] = PropTypes.func));
