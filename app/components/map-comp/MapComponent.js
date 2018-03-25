@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { camelize, loadJS } from './Utils';
+import { camelize, loadJS } from './Utils'
 
 const evtNames = [
   'bounds_changed',
@@ -49,8 +49,8 @@ export default class MapComponent extends React.Component {
     this.loadMap();
   }
 
-  loadMap() {
-    const mapConfig = {
+  loadMap = () => {
+    this.mapConfig = {
       apiKey: this.props.apiKey,
       backgroundColor: this.props.backgroundColor,
       center: this.props.center,
@@ -87,11 +87,18 @@ export default class MapComponent extends React.Component {
       // visible: this.props.visible,
     };
 
-    this.map = new google.maps.Map(document.getElementById('map'), mapConfig);
-    this.listeners = {};//not sure of this purpose
-    evtNames.forEach(e => {
-      this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
-    });
+    if (this.props.addressCenter) {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'address': this.props.addressCenter }, (results, status) => {
+        if (status === 'OK') {
+          this.mapConfig.center = results[0].geometry.location;
+          this.buildMap();
+        }
+      });
+    } else {
+      this.buildMap();
+    }
+
 
 /*  https://reactjs.org/docs/react-component.html#forceupdate
     https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
@@ -99,11 +106,19 @@ export default class MapComponent extends React.Component {
 
   }
 
-  handleEvent(evt) {
+  buildMap = () => {
+    this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
+    this.listeners = {};//attached to MapComponent
+    evtNames.forEach(e => {
+      this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
+    });
+  }
+
+  handleEvent = (evt) => {
     return (e) => {
       const evtName = `on${camelize(evt)}`
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.map, e); //***purpose of passing this.props?* */
+        this.props[evtName](this.props, this.map, e); 
       }
     }
   }
