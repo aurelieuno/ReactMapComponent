@@ -4,7 +4,7 @@ import InfoWindow from './lib/InfoWindow'
 import MapComponent from './lib/MapComponent'
 import {MAP_API_KEY} from '../../config'
 
-export default class MapContainer extends Component {
+export default class MapExample1 extends Component {
   state = {
     showingInfoWindow: false,
     selectedPlace: {},
@@ -31,11 +31,10 @@ export default class MapContainer extends Component {
   render() {
     return (
       <div>
-        <h1> Google Maps Component </h1>
+        <h1> Map Example 1 </h1>
         <MapComponent
           apiKey={MAP_API_KEY}
           zoom={12}
-          // center={{ lat: 29.9798107, lng: -90.0793491 }}
           center={'2823 Ursulines Avenue, New Orleans, LA'}
           style={{
             width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.

@@ -4,7 +4,7 @@ import InfoWindow from './lib/InfoWindow'
 import MapComponent from './lib/MapComponent'
 import {MAP_API_KEY} from '../../config'
 
-export default class MapContainer2 extends Component {
+export default class MapExample2 extends Component {
   state = {
     showingInfoWindow: false,
     selectedPlace: {},
@@ -31,7 +31,7 @@ export default class MapContainer2 extends Component {
   render() {
     return (
       <div>
-        <h1> Google Maps Component </h1>
+        <h1> Map Example 2 </h1>
         <MapComponent
           apiKey={MAP_API_KEY}
           zoom={12}
