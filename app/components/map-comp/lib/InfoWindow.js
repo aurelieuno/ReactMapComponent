@@ -1,39 +1,37 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import {Component} from 'react'
+import PropTypes from 'prop-types'
 
 export default class InfoWindow extends Component {
   componentDidUpdate() {
     // console.log('this.props infoWindow', this.props) //relies on gitclone
     if (this.props.marker === null) {
-      this.closeInfoWindow();
+      this.closeInfoWindow()
     } else if (this.props.map && Object.keys(this.props.marker).length > 0) {
-      this.openInfoWindow();
+      this.openInfoWindow()
     }
   }
 
   closeInfoWindow() {
-    return this.infowindow.close();
+    return this.infowindow.close()
   }
 
   openInfoWindow() {
-    const {
-      map, marker, content,
-    } = this.props;
+    const {map, marker, content} = this.props
 
     const InfoWindowConfig = {
       content,
-    };
+    }
 
-    this.infowindow = new google.maps.InfoWindow(InfoWindowConfig);
+    this.infowindow = new google.maps.InfoWindow(InfoWindowConfig)
 
     if (marker) {
-      return this.infowindow.open(map, marker);
+      return this.infowindow.open(map, marker)
     }
-    return '';
+    return ''
   }
 
   render() {
-    return null;
+    return null
   }
 }
 
@@ -41,5 +39,4 @@ InfoWindow.propTypes = {
   map: PropTypes.object,
   marker: PropTypes.object,
   content: PropTypes.string.isRequired,
-};
-
+}

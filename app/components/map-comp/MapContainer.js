@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import Marker from './lib/Marker';
-import InfoWindow from './lib/InfoWindow';
-import MapComponent from './lib/MapComponent';
-import { MAP_API_KEY } from '../../config';
+import React, {Component} from 'react'
+import Marker from './lib/Marker'
+import InfoWindow from './lib/InfoWindow'
+import MapComponent from './lib/MapComponent'
+import {MAP_API_KEY} from '../../config'
 
 export default class MapContainer extends Component {
   state = {
@@ -16,7 +16,7 @@ export default class MapContainer extends Component {
       this.setState({
         showingInfoWindow: false,
         activeMarker: null,
-      });
+      })
     }
   }
 
@@ -25,7 +25,7 @@ export default class MapContainer extends Component {
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
-    });
+    })
   }
 
   render() {
@@ -38,8 +38,8 @@ export default class MapContainer extends Component {
           // center={{ lat: 29.9798107, lng: -90.0793491 }}
           center="2823 Ursulines Avenue, New Orleans, LA"
           style={{
-             width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
-             height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
+            width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
+            height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
           }}
           onClick={this.onMapClicked}
         >
@@ -55,14 +55,12 @@ export default class MapContainer extends Component {
           />
           <InfoWindow
             marker={this.state.activeMarker}
-            content={
-              `<div>
+            content={`<div>
               <p>${this.state.selectedPlace.name}</p>
-              </div>`
-            }
+              </div>`}
           />
         </MapComponent>
       </div>
-    );
+    )
   }
 }

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { camelize, loadJS } from './Utils';
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import {camelize, loadJS} from './Utils'
 
 const evtNames = [
   'bounds_changed',
@@ -22,27 +22,28 @@ const evtNames = [
   'tilesloaded',
   'tilt_changed',
   'zoom_changed',
-];
+]
 
 export default class MapComponent extends Component {
   componentDidMount() {
-    const mapScript = window.document.getElementById('mapScript');
+    const mapScript = window.document.getElementById('mapScript')
+
     if (!mapScript) {
-      this.initMap();
+      this.initMap()
     } else {
-      this.loadMap();
+      this.loadMap()
     }
   }
 
   componentWillUnmount() {
     Object.keys(this.listeners).forEach((e) => {
-      google.maps.event.removeListener(this.listeners[e]);
-    });
+      google.maps.event.removeListener(this.listeners[e])
+    })
   }
 
   initMap = async () => {
-    await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}`);
-    this.loadMap();
+    await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}`)
+    this.loadMap()
   }
 
   loadMap() {
@@ -75,52 +76,59 @@ export default class MapComponent extends Component {
       tilt: this.props.tilt,
       zoom: this.props.zoom,
       zoomControl: this.props.zoomControl,
-    };
+    }
 
     if (typeof this.props.center === 'string') {
-      const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ address: this.props.center }, (results, status) => {
+      const geocoder = new google.maps.Geocoder()
+
+      geocoder.geocode({address: this.props.center}, (results, status) => {
         if (status === 'OK') {
-          this.mapConfig.center = results[0].geometry.location;
-          this.buildMap();
+          this.mapConfig.center = results[0].geometry.location
+          this.buildMap()
         } else {
-          alert(`Map geocoder problem type: ${status}`);
+          alert(`Map geocoder problem type: ${status}`)
         }
-      });
+      })
     } else {
-      this.buildMap();
+      this.buildMap()
     }
   }
 
   buildMap() {
-    this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
-    this.listeners = {};// attached to MapComponent
+    this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig)
+    this.listeners = {} // attached to MapComponent
     evtNames.forEach((e) => {
-      this.listeners[e] = this.map.addListener(e, this.handleEvent(e));
-    });
-    this.forceUpdate();
+      this.listeners[e] = this.map.addListener(e, this.handleEvent(e))
+    })
+    this.forceUpdate()
     /*  https://reactjs.org/docs/react-component.html#forceupdate
     https://reactjs.org/docs/react-component.html#shouldcomponentupdate */
   }
 
   handleEvent(evt) {
     return (e) => {
-      const evtName = `on${camelize(evt)}`;
+      const evtName = `on${camelize(evt)}`
+
       if (this.props[evtName]) {
-        this.props[evtName](this.props, this.map, e);
+        this.props[evtName](this.props, this.map, e)
       }
-    };
+    }
   }
 
   renderChildren() {
-    const { children } = this.props;
-    if (!children) return;
-    return React.Children.map(children, (c) => {
-      if (!c) return;
-      return React.cloneElement(c, {
+    const {children} = this.props
+
+    if (!children) {
+      return
+    }
+    return React.Children.map(children, (child) => {
+      if (!child) {
+        return
+      }
+      return React.cloneElement(child, {
         map: this.map,
-      });
-    });
+      })
+    })
   }
 
   render() {
@@ -131,7 +139,7 @@ export default class MapComponent extends Component {
         </div>
         {this.renderChildren()}
       </div>
-    );
+    )
   }
 }
 
@@ -141,10 +149,7 @@ https://developers.google.com/maps/documentation/javascript/reference/3.exp/map#
 MapComponent.propTypes = {
   apiKey: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
-  center: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]).isRequired,
+  center: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   children: PropTypes.array,
   clickableIcons: PropTypes.bool,
   disableDefaultUI: PropTypes.bool,
@@ -171,6 +176,6 @@ MapComponent.propTypes = {
   tilt: PropTypes.number,
   zoom: PropTypes.number,
   zoomControl: PropTypes.bool,
-};
+}
 
-evtNames.forEach(e => (MapComponent.propTypes[camelize(e)] = PropTypes.func));
+evtNames.forEach((e) => (MapComponent.propTypes[camelize(e)] = PropTypes.func))
