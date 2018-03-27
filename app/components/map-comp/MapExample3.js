@@ -35,7 +35,8 @@ export default class MapExample1 extends Component {
         <MapComponent
           apiKey={MAP_API_KEY}
           zoom={12}
-          center={'City Park, New Orleans, LA'}
+          center={'200 Saint Charles Avenue, New Orleans, LA'}
+          mapTypeId={'satellite'}
           style={{
             width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
             height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
@@ -43,9 +44,11 @@ export default class MapExample1 extends Component {
           onClick={this.onMapClicked}
         >
           <Marker
-            position={'4200 Canal Street, New Orleans, LA'}
-            name={'RevelryLab'}
-            icon={{url: './app/components/map-comp/assets/RevMarker.png'}}
+            position={'200 Saint Charles Avenue, New Orleans, LA'}
+            name={'Marker Name'}
+            title={'Marker num 1'}
+            label={'M1'}
+            draggable={true}
             onClick={this.onMarkerClick}
           />
           <Marker
