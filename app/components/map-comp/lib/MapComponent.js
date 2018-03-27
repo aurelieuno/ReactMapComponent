@@ -119,11 +119,11 @@ export default class MapComponent extends Component {
     const {children} = this.props
 
     if (!children) {
-      return
+      return ''
     }
     return React.Children.map(children, (child) => {
       if (!child) {
-        return
+        return ''
       }
       return React.cloneElement(child, {
         map: this.map,

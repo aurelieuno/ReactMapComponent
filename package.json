@@ -7,7 +7,7 @@
     "build": "webpack",
     "start": "webpack-dev-server --open"
   },
-  "author": "",
+  "author": "Lily Lebec",
   "license": "ISC",
   "babel": {
     "presets": [

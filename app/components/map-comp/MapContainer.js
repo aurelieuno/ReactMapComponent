@@ -36,7 +36,7 @@ export default class MapContainer extends Component {
           apiKey={MAP_API_KEY}
           zoom={12}
           // center={{ lat: 29.9798107, lng: -90.0793491 }}
-          center="2823 Ursulines Avenue, New Orleans, LA"
+          center={'2823 Ursulines Avenue, New Orleans, LA'}
           style={{
             width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
             height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
@@ -44,17 +44,18 @@ export default class MapContainer extends Component {
           onClick={this.onMapClicked}
         >
           <Marker
-            position="2823 Ursulines Avenue, New Orleans, LA"
-            name="City Park"
+            position={'2823 Ursulines Avenue, New Orleans, LA'}
+            name={'Home'}
             onClick={this.onMarkerClick}
           />
           <Marker
-            position="City Park, New Orleans, LA"
-            name="City Park"
+            position={'City Park, New Orleans, LA'}
+            name={'City Park'}
             onClick={this.onMarkerClick}
           />
           <InfoWindow
             marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
             content={`<div>
               <p>${this.state.selectedPlace.name}</p>
               </div>`}

@@ -43,12 +43,13 @@ export default class MapContainer2 extends Component {
           onClick={this.onMapClicked}
         >
           <Marker
-            position="Chelsea Market, 75 9th Ave, New York, NY 10011"
-            name="Chelsea Market"
+            position={'Chelsea Market, 75 9th Ave, New York, NY 10011'}
+            name={'Chelsea Market'}
             onClick={this.onMarkerClick}
           />
           <InfoWindow
             marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
             content={`<div>
               <p>${this.state.selectedPlace.name}</p>
               </div>`}
