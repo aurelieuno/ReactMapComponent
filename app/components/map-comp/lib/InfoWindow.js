@@ -2,18 +2,23 @@ import {Component} from 'react'
 import PropTypes from 'prop-types'
 
 export default class InfoWindow extends Component {
-  componentDidUpdate() {
-    // console.log('this.props infoWindow', this.props) //relies on gitclone
-    const {map, visible, marker} = this.props
+  componentDidUpdate(prevProps) {
+    const {visible, marker} = this.props
 
     if (!marker) {
       return ''
     }
 
-    if (visible) {
-      return this.openInfoWindow()
-    } else {
+    // if (prevProps.marker && prevProps.marker.label != this.props.marker.label) {
+    //   console.log(prevProps.marker.label == this.props.marker.label);
+    //   this.closeInfoWindow();
+    //   this.openInfoWindow();
+    // }
+
+    if (!visible) {
       return this.closeInfoWindow()
+    } else {
+      return this.openInfoWindow()
     }
   }
 

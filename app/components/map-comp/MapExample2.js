@@ -36,6 +36,7 @@ export default class MapExample2 extends Component {
           apiKey={MAP_API_KEY}
           zoom={12}
           center={{lat: 40.7485722, lng: -74.0068633}}
+          mapTypeId={'terrain'}
           style={{
             width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
             height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
