@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 export default class InfoWindow extends Component {
   componentDidUpdate() {
     // console.log('this.props infoWindow', this.props) //relies on gitclone
-    const {map, visible} = this.props
+    const {map, visible, marker} = this.props
 
-    if (!map) {
+    if (!marker) {
       return ''
     }
 
-    if (!visible) {
-      return this.closeInfoWindow()
-    } else {
+    if (visible) {
       return this.openInfoWindow()
+    } else {
+      return this.closeInfoWindow()
     }
   }
 
@@ -44,6 +44,6 @@ export default class InfoWindow extends Component {
 InfoWindow.propTypes = {
   map: PropTypes.object,
   marker: PropTypes.object,
-  visible: PropTypes.string,
+  visible: PropTypes.bool,
   content: PropTypes.string.isRequired,
 }

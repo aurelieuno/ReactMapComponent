@@ -8,14 +8,14 @@ export default class MapExample1 extends Component {
   state = {
     showingInfoWindow: false,
     selectedPlace: {},
-    activeMarker: {},
+    activeMarker: null,
   }
 
   onMapClicked = () => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null,
+        activeMarker: {},
       })
     }
   }
