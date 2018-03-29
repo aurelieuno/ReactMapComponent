@@ -3,44 +3,56 @@ import PropTypes from 'prop-types'
 
 export default class InfoWindow extends Component {
   componentDidUpdate(prevProps) {
-    const {visible, marker} = this.props
+    const {visible, marker, map} = this.props
 
-    if (!marker) {
+    if (!map) {
       return ''
     }
 
-    // if (prevProps.marker && prevProps.marker.label != this.props.marker.label) {
-    //   console.log(prevProps.marker.label == this.props.marker.label);
-    //   this.closeInfoWindow();
-    //   this.openInfoWindow();
-    // }
+    if (map !== prevProps.map) {
+        this.renderInfoWindow()
+      }
 
-    if (!visible) {
-      return this.closeInfoWindow()
-    } else {
+    if (prevProps.marker !== marker) {
+        this.updateContent();
+    }
+
+    if (visible) {
       return this.openInfoWindow()
+    } else {
+      return this.closeInfoWindow()
     }
   }
 
-  closeInfoWindow() {
-    return this.infowindow.close()
+  
+  renderInfoWindow() {
+    const {content} = this.props
+    
+    const InfoWindowConfig = {
+      content 
+    }
+    
+    this.infowindow = new google.maps.InfoWindow(InfoWindowConfig)
   }
-
+  
+  updateContent() {
+    const {content} = this.props
+    this.infowindow.setContent(content)
+  }
+  
   openInfoWindow() {
     const {map, marker, content} = this.props
-
-    const InfoWindowConfig = {
-      content,
-    }
-
-    this.infowindow = new google.maps.InfoWindow(InfoWindowConfig)
-
+    
     if (marker) {
       return this.infowindow.open(map, marker)
     }
     return ''
   }
-
+  
+  closeInfoWindow() {
+    return this.infowindow.close()
+  }
+  
   render() {
     return null
   }

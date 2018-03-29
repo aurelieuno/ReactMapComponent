@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import Marker from './lib/Marker'
-import InfoWindowBis from './lib/InfoWindowBis'
+import InfoWindow from './lib/InfoWindow'
 import MapComponent from './lib/MapComponent'
 import {MAP_API_KEY} from '../../config'
 
-export default class MapExample3 extends Component {
+export default class MapExample4 extends Component {
   state = {
     showingInfoWindow: false,
     selectedPlace: {},
@@ -59,11 +59,13 @@ export default class MapExample3 extends Component {
             draggable
             onClick={this.onMarkerClick}
           />
-          <InfoWindowBis marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
-          </InfoWindowBis>
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            content={`<div>
+              <p>${this.state.selectedPlace.name}</p>
+              </div>`}
+          />
         </MapComponent>
       </div>
     )
