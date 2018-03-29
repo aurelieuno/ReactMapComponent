@@ -5,14 +5,15 @@ import ReactDOMServer from 'react-dom/server'
 
 export class InfoWindowBis extends React.Component {
   componentDidMount() {
+    console.log('infowindowdidMount')
     this.renderInfoWindow()
   }
 
   componentDidUpdate(prevProps) {
-    const {google, map} = this.props;
+    const { map} = this.props;
 
 
-    if (!google || !map) {
+    if (!map) {
       return
     }
 
@@ -40,9 +41,9 @@ export class InfoWindowBis extends React.Component {
   }
 
   renderInfoWindow() {
-    const {map, google, mapCenter} = this.props;
+    const {map} = this.props;
 
-    if (!google || !google.maps) {
+    if (!map) {
       return ''
     }
 
