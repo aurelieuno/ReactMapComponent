@@ -10,11 +10,11 @@ export default class InfoWindow extends Component {
     }
 
     if (map !== prevProps.map) {
-        this.renderInfoWindow()
-      }
+      this.renderInfoWindow()
+    }
 
     if (prevProps.marker !== marker) {
-        this.updateContent();
+      this.updateContent()
     }
 
     if (visible) {
@@ -24,35 +24,35 @@ export default class InfoWindow extends Component {
     }
   }
 
-  
   renderInfoWindow() {
     const {content} = this.props
-    
+
     const InfoWindowConfig = {
-      content 
+      content,
     }
-    
+
     this.infowindow = new google.maps.InfoWindow(InfoWindowConfig)
   }
-  
+
   updateContent() {
     const {content} = this.props
+
     this.infowindow.setContent(content)
   }
-  
+
   openInfoWindow() {
-    const {map, marker, content} = this.props
-    
+    const {map, marker} = this.props
+
     if (marker) {
       return this.infowindow.open(map, marker)
     }
     return ''
   }
-  
+
   closeInfoWindow() {
     return this.infowindow.close()
   }
-  
+
   render() {
     return null
   }

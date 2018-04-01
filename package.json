@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "precommit": "pretty-quick --staged",
     "build": "webpack",
     "start": "node_modules/.bin/webpack-dev-server --open --port 9000",
     "setup": "npm install && npm start"
@@ -35,6 +36,7 @@
     "html-webpack-plugin": "^2.29.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.11.0",
+    "pretty-quick": "^1.4.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.11.0",

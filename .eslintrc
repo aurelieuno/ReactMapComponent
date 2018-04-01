@@ -53,9 +53,9 @@
     "no-unexpected-multiline": 2,
     "accessor-pairs": 2,
     "block-scoped-var": 2,
-    "complexity": [
-      2,
-      3
+    "complexity": [ 
+      "error",
+      5
     ],
     "consistent-return": 2,
     "curly": [

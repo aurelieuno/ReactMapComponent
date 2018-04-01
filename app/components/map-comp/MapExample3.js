@@ -34,13 +34,8 @@ export default class MapExample4 extends Component {
         <h1> Map Example 3 </h1>
         <MapComponent
           apiKey={MAP_API_KEY}
-          zoom={12}
           center={'200 Saint Charles Avenue, New Orleans, LA'}
           mapTypeId={'hybrid'}
-          style={{
-            width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
-            height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
-          }}
           onClick={this.onMapClicked}
         >
           <Marker

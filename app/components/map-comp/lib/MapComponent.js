@@ -72,7 +72,7 @@ export default class MapComponent extends Component {
       scrollwheel: this.props.scrollwheel,
       streetViewControl: this.props.streetViewControl,
       style: this.props.style,
-      styles: this.props.styles,
+      // styles: this.props.styles,
       tilt: this.props.tilt,
       zoom: this.props.zoom,
       zoomControl: this.props.zoomControl,
@@ -171,11 +171,19 @@ MapComponent.propTypes = {
   scaleControl: PropTypes.bool,
   scrollwheel: PropTypes.bool,
   streetViewControl: PropTypes.bool,
-  style: PropTypes.object.isRequired,
-  styles: PropTypes.array,
+  style: PropTypes.object,
+  // styles: PropTypes.array,
   tilt: PropTypes.number,
   zoom: PropTypes.number,
   zoomControl: PropTypes.bool,
+}
+
+MapComponent.defaultProps = {
+  zoom: 12,
+  style: {
+    width: '65vw',
+    height: '65vh',
+  },
 }
 
 evtNames.forEach((e) => (MapComponent.propTypes[camelize(e)] = PropTypes.func))
