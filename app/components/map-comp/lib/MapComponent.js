@@ -2,6 +2,14 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {camelize, loadJS} from './Utils'
 
+const BOOL_PROPS_TO_CLASS_NAMES = {
+  small: 'rev-Map--small',
+  medium: 'rev-Map--medium',
+  large: 'rev-Map--large',
+}
+
+const BOOL_PROPS = Object.keys(BOOL_PROPS_TO_CLASS_NAMES)
+
 const evtNames = [
   'bounds_changed',
   'center_changed',
@@ -47,6 +55,14 @@ export default class MapComponent extends Component {
   }
 
   loadMap() {
+    const propClassNames = BOOL_PROPS.reduce((acc, key) => {
+      const value = BOOL_PROPS_TO_CLASS_NAMES[key]
+
+      acc[value] = this.props[key]
+      return acc
+    }, {})
+    const newClassName = classNames(this.props.className, propClassNames)
+
     this.mapConfig = {
       apiKey: this.props.apiKey,
       backgroundColor: this.props.backgroundColor,

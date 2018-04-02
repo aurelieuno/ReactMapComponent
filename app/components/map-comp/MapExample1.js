@@ -32,7 +32,6 @@ export default class MapExample1 extends Component {
     return (
       <div>
         <h1> Map Example 1 </h1>
-        <h2> Map Example 1 </h2>
         <MapComponent
           apiKey={MAP_API_KEY}
           zoom={12}
