@@ -33,6 +33,7 @@ export default class MapExample4 extends Component {
       <div>
         <h1> Map Example 3 </h1>
         <MapComponent
+          small
           apiKey={MAP_API_KEY}
           center={'200 Saint Charles Avenue, New Orleans, LA'}
           mapTypeId={'hybrid'}

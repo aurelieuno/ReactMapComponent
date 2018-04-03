@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import {camelize, loadJS} from './Utils'
 
 const BOOL_PROPS_TO_CLASS_NAMES = {
@@ -61,7 +62,10 @@ export default class MapComponent extends Component {
       acc[value] = this.props[key]
       return acc
     }, {})
-    const newClassName = classNames(this.props.className, propClassNames)
+
+    this.newClassName = classNames(propClassNames)
+
+    console.log(this.newClassName)
 
     this.mapConfig = {
       apiKey: this.props.apiKey,
@@ -88,7 +92,6 @@ export default class MapComponent extends Component {
       scrollwheel: this.props.scrollwheel,
       streetViewControl: this.props.streetViewControl,
       style: this.props.style,
-      // styles: this.props.styles,
       tilt: this.props.tilt,
       zoom: this.props.zoom,
       zoomControl: this.props.zoomControl,
@@ -150,10 +153,14 @@ export default class MapComponent extends Component {
   render() {
     return (
       <div>
-        <div id="map" style={this.props.style}>
+        <div id="map" className={this.newClassName} style={this.props.style}>
           loading map...
         </div>
         {this.renderChildren()}
+        <div className={this.newClassName}>
+          <h2>hello</h2>
+          <img src="app/components/map-comp/assets/RevMarker.png" alt="Smiley face" />
+        </div>
       </div>
     )
   }
@@ -188,7 +195,6 @@ MapComponent.propTypes = {
   scrollwheel: PropTypes.bool,
   streetViewControl: PropTypes.bool,
   style: PropTypes.object,
-  // styles: PropTypes.array,
   tilt: PropTypes.number,
   zoom: PropTypes.number,
   zoomControl: PropTypes.bool,
@@ -196,10 +202,10 @@ MapComponent.propTypes = {
 
 MapComponent.defaultProps = {
   zoom: 12,
-  style: {
-    width: '65vw',
-    height: '65vh',
-  },
+  // style: {
+  //   width: '65vw',
+  //   height: '65vh',
+  // },
 }
 
 evtNames.forEach((e) => (MapComponent.propTypes[camelize(e)] = PropTypes.func))
