@@ -65,8 +65,6 @@ export default class MapComponent extends Component {
 
     this.newClassName = classNames(propClassNames)
 
-    console.log(this.newClassName)
-
     this.mapConfig = {
       apiKey: this.props.apiKey,
       backgroundColor: this.props.backgroundColor,
@@ -153,14 +151,14 @@ export default class MapComponent extends Component {
   render() {
     return (
       <div>
-        <div id="map" className={this.newClassName} style={this.props.style}>
+        <div
+          id="map"
+          className={this.newClassName}
+          style={this.newClassName ? {} : this.props.style}
+        >
           loading map...
         </div>
         {this.renderChildren()}
-        <div className={this.newClassName}>
-          <h2>hello</h2>
-          <img src="app/components/map-comp/assets/RevMarker.png" alt="Smiley face" />
-        </div>
       </div>
     )
   }
@@ -201,11 +199,11 @@ MapComponent.propTypes = {
 }
 
 MapComponent.defaultProps = {
-  zoom: 12,
-  // style: {
-  //   width: '65vw',
-  //   height: '65vh',
-  // },
+  zoom: 14,
+  style: {
+    width: '55vw',
+    height: '55vh',
+  },
 }
 
 evtNames.forEach((e) => (MapComponent.propTypes[camelize(e)] = PropTypes.func))

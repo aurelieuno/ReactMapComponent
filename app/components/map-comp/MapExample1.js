@@ -36,10 +36,6 @@ export default class MapExample1 extends Component {
           apiKey={MAP_API_KEY}
           zoom={12}
           center={'City Park, New Orleans, LA'}
-          style={{
-            width: '75vw', // 90vw basically means take up 90% of the width screen. px also works.
-            height: '75vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
-          }}
           onClick={this.onMapClicked}
         >
           <Marker

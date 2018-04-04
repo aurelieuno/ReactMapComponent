@@ -48,8 +48,8 @@ export default class MapExample4 extends Component {
             onClick={this.onMarkerClick}
           />
           <Marker
-            position={'City Park, New Orleans, LA'}
-            name={'City Park'}
+            position={'901 Poydras Avenue, New Orleans, LA'}
+            name={'Poydras bulding'}
             title={'Marker num 2'}
             label={'M2'}
             draggable
