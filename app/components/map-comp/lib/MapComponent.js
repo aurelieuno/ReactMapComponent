@@ -151,13 +151,13 @@ export default class MapComponent extends Component {
   render() {
     return (
       <div>
+        {this.props.apiKey ? '' : <h4>Missing API Key!</h4>}
+        {this.props.center ? '' : <h4>Missing center props!</h4>}
         <div
           id="map"
           className={this.newClassName}
           style={this.newClassName ? {} : this.props.style}
-        >
-          loading map...
-        </div>
+        />
         {this.renderChildren()}
       </div>
     )
