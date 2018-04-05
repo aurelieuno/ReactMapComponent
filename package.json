@@ -7,12 +7,25 @@
     "precommit": "pretty-quick --staged",
     "build": "webpack",
     "start": "node_modules/.bin/webpack-dev-server --open --port 9000",
-    "setup": "npm install && npm start"
+    "setup": "npm install && npm start",
+    "test": "nyc mocha './test/*.test.js' --opts ./test/mocha.opts && nyc report --reporter=html"
   },
   "author": "Lily Lebec",
   "license": "ISC",
   "babel": {
-    "presets": ["env", "react", "es2015", "stage-0"]
+    "presets": [
+      "env",
+      "react",
+      "es2015",
+      "stage-0"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -32,6 +45,7 @@
     "husky": "^0.14.3",
     "node-sass": "^4.7.2",
     "nodemon": "^1.11.0",
+    "nyc": "^11.6.0",
     "pretty-quick": "^1.4.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
@@ -41,6 +55,7 @@
   "dependencies": {
     "@types/node": "^9.6.1",
     "babel-eslint": "^8.2.2",
+    "babel-plugin-istanbul": "^4.1.5",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "classnames": "^2.2.5",
@@ -50,8 +65,21 @@
     "mocha": "^5.0.5",
     "prettier": "^1.11.1",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-router-dom": "^4.1.1"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-router-dom": "^4.1.1",
+    "source-map-support": "^0.5.4"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": true
   }
 }
