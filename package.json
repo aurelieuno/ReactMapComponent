@@ -8,22 +8,16 @@
     "build": "webpack",
     "start": "node_modules/.bin/webpack-dev-server --open --port 9000",
     "setup": "npm install && npm start",
-    "test": "nyc mocha './test/*.test.js' --opts ./test/mocha.opts && nyc report --reporter=html"
+    "test":
+      "NODE_ENV='test' nyc mocha './test/*.test.js' --opts ./test/mocha.opts && nyc report --reporter=html"
   },
   "author": "Lily Lebec",
   "license": "ISC",
   "babel": {
-    "presets": [
-      "env",
-      "react",
-      "es2015",
-      "stage-0"
-    ],
+    "presets": ["env", "react", "es2015", "stage-0"],
     "env": {
       "test": {
-        "plugins": [
-          "istanbul"
-        ]
+        "plugins": ["istanbul"]
       }
     }
   },
@@ -71,14 +65,8 @@
     "source-map-support": "^0.5.4"
   },
   "nyc": {
-    "require": [
-      "babel-register"
-    ],
-    "reporter": [
-      "lcov",
-      "html",
-      "text"
-    ],
+    "require": ["babel-register"],
+    "reporter": ["lcov", "html", "text"],
     "sourceMap": false,
     "instrument": true
   }
