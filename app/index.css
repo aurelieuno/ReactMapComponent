@@ -31,3 +31,9 @@ li {
 .active {
   font-weight: bold;
 }
+.GMap-canvas {
+  margin: auto;
+  width: 50%;
+  height: 350px;
+  margin: auto;
+}
