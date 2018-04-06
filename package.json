@@ -9,7 +9,7 @@
     "start": "node_modules/.bin/webpack-dev-server --open --port 9000",
     "setup": "npm install && npm start",
     "test":
-      "NODE_ENV='test' nyc mocha './test/*.test.js' --opts ./test/mocha.opts && nyc report --reporter=html"
+      "NODE_ENV='test' nyc mocha './test/MapComponent.test.js' --opts ./test/mocha.opts && nyc report --reporter=html"
   },
   "author": "Lily Lebec",
   "license": "ISC",
@@ -64,6 +64,7 @@
     "react-dom": "^16.3.0",
     "react-load-script": "0.0.6",
     "react-router-dom": "^4.1.1",
+    "sinon": "^4.5.0",
     "source-map-support": "^0.5.4"
   },
   "nyc": {
