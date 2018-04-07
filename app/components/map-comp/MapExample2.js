@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Marker from './lib/Marker'
 import InfoWindow from './lib/InfoWindow'
 import MapComponent from './lib/MapComponent'
+import {styles} from './styles.js'
 import {MAP_API_KEY} from '../../config'
 
 export default class MapExample2 extends Component {
@@ -36,11 +37,11 @@ export default class MapExample2 extends Component {
           apiKey={MAP_API_KEY}
           zoom={14}
           center={{lat: 40.7485722, lng: -74.0068633}}
-          mapTypeId={'terrain'}
           style={{
-            width: '45vw', // 90vw basically means take up 90% of the width screen. px also works.
-            height: '45vh', // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
+            width: '45vw',
+            height: '45vh',
           }}
+          styles={styles.retro}
           onClick={this.onMapClicked}
         >
           <Marker
