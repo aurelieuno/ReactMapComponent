@@ -2,10 +2,6 @@ import React, {Component} from 'react'
 import Marker from './lib/Marker'
 import InfoWindow from './lib/InfoWindow'
 import MapComponent from './lib/MapComponent'
-import MapComponent2 from './lib/MapComponent2'
-import GMap from './lib/GMap.js'
-import {render} from 'react-dom'
-
 import {MAP_API_KEY} from '../../config'
 
 export default class MapExample5 extends Component {
@@ -33,18 +29,75 @@ export default class MapExample5 extends Component {
   }
 
   render() {
-    const basicSettings = {
-      initialCenter: {
-        lat: 29.975588,
-        lng: -90.102682,
-      },
-      initialZoom: 12,
-    }
     return (
       <div>
         <h1> Map Example 5 </h1>
-        <GMap />
-        <GMap />
+        <div>
+          <MapComponent
+            small
+            apiKey={MAP_API_KEY}
+            center={'200 Saint Charles Avenue, New Orleans, LA'}
+            mapTypeId={'hybrid'}
+            onClick={this.onMapClicked}
+          >
+            <Marker
+              position={'200 Saint Charles Avenue, New Orleans, LA'}
+              name={'St Charles'}
+              title={'Marker num 1'}
+              label={'M1'}
+              draggable
+              onClick={this.onMarkerClick}
+            />
+            <Marker
+              position={'901 Poydras Avenue, New Orleans, LA'}
+              name={'Poydras bulding'}
+              title={'Marker num 2'}
+              label={'M2'}
+              draggable
+              onClick={this.onMarkerClick}
+            />
+            <InfoWindow
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              content={`<div>
+              <p>${this.state.selectedPlace.name}</p>
+              </div>`}
+            />
+          </MapComponent>
+        </div>
+        <div>
+          <MapComponent
+            small
+            apiKey={MAP_API_KEY}
+            center={'200 Saint Charles Avenue, New Orleans, LA'}
+            mapTypeId={'hybrid'}
+            onClick={this.onMapClicked}
+          >
+            <Marker
+              position={'200 Saint Charles Avenue, New Orleans, LA'}
+              name={'St Charles'}
+              title={'Marker num 1'}
+              label={'M1'}
+              draggable
+              onClick={this.onMarkerClick}
+            />
+            <Marker
+              position={'901 Poydras Avenue, New Orleans, LA'}
+              name={'Poydras bulding'}
+              title={'Marker num 2'}
+              label={'M2'}
+              draggable
+              onClick={this.onMarkerClick}
+            />
+            <InfoWindow
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              content={`<div>
+              <p>${this.state.selectedPlace.name}</p>
+              </div>`}
+            />
+          </MapComponent>
+        </div>
       </div>
     )
   }
